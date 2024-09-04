@@ -1,0 +1,26 @@
+[
+  {
+    "collection": "projects",
+    "title": "Projects",
+    "apiUrl": "/api/projects",
+    "reloadEvents": {
+      "delete": "reloadProjects",
+      "create": "reloadProjects",
+      "update": "reloadProjects"
+    },
+
+    "reloadEventTitle": "reloadProjects"
+  },
+  {
+    "collection": "projectSettings",
+    "title": "Project settings",
+    "apiUrl": "/api/project-settings",
+    "reloadEvents": {
+      "delete": "reloadProjectSettings",
+      "create": "reloadProjectSettings",
+      "update": "reloadProjectSettings"
+    },
+
+    "reloadEventTitle": "reloadProjectSettings"
+  }
+]

@@ -1,0 +1,105 @@
+.custom-data-grid {
+  width: 100%;
+  min-height: 200px !important;
+  border-radius: var(--radius-400, 16px) !important;
+  background: var(--background-gray-default, #fff) !important;
+}
+
+.custom-data-grid .MuiDataGrid-row:hover {
+  background-color: var(--background-primary-secondary, #f8f7fb) !important;
+}
+.hidePagination .MuiDataGrid-footerContainer {
+  display: none !important;
+}
+.custom-data-grid .MuiDataGrid-virtualScroller {
+  border-radius: var(--radius-400, 16px) !important;
+}
+/* .custom-data-grid .MuiDataGrid-columnHeaders {
+  max-height: 40px !important;
+} */
+.custom-data-grid .MuiDataGrid-columnHeader {
+  max-height: 40px !important;
+}
+.custom-data-grid
+  .MuiDataGrid-columnHeader
+  > div:first-child
+  > div:nth-child(2) {
+  padding-left: 10px !important;
+}
+/* .custom-data-grid.MuiDataGrid-root .MuiDataGrid-cell {
+  padding-left: 16px !important;
+} */
+
+.custom-data-grid .MuiDataGrid-columnHeaderTitleContainerContent {
+  min-height: 16px !important;
+}
+.custom-data-grid .MuiSvgIcon-root {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.custom-data-grid .MuiCheckbox-root:hover {
+  background-color: transparent !important;
+}
+.custom-data-grid .MuiDataGrid-cell {
+  height: 48px !important;
+  border: none !important;
+}
+.custom-data-grid .MuiToolbar-root {
+  min-height: 40px !important;
+}
+.custom-data-grid .MuiDataGrid-footerContainer {
+  min-height: 40px !important;
+  height: 40px !important;
+}
+
+.custom-data-grid .MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+.MuiDataGrid-cell:focus {
+  outline: none !important;
+}
+.MuiDataGrid-columnHeader:focus-within {
+  outline: none !important;
+}
+.MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+.MuiDataGrid-filler :first-child {
+  border-top: none !important;
+  background: var(--background-gray-default, #fff);
+}
+
+/* .custom-data-grid .MuiDataGrid-root .mui-data-grid-column-headers {
+  padding: 0px;
+  min-height: 40px !important;
+}
+
+.custom-data-grid .MuiDataGrid-root .mui-data-grid-column-header {
+  height: 40px !important;
+}
+
+.custom-data-grid .MuiDataGrid-root .MuiDataGrid-row {
+  padding: 1px 0px;
+  min-height: 48px !important;
+} */
+
+.custom-data-grid .MuiDataGrid-root .MuiTablePagination-selectLabel,
+.custom-data-grid .MuiDataGrid-root .MuiTablePagination-displayedRows,
+.custom-data-grid .MuiDataGrid-root .MuiTablePagination-select,
+.custom-data-grid .MuiDataGrid-root .MuiTablePagination-menuItem {
+  font-size: 12px !important;
+}
+.custom-data-grid .MuiDataGrid-root .MuiTablePagination-selectLabel {
+  font-size: 12px !important;
+}
+
+.custom-data-grid .MuiDataGrid-root button {
+  max-height: 32px !important;
+}
+.MuiTablePagination-selectLabel {
+  color: var(--text-gray-secondary, #6d6d6d);
+}
+.MuiMenuItem-root {
+  font-size: 12px !important;
+}

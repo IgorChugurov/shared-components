@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  padding: var(--space-400, 16px) var(--space-600, 24px) var(--space-0, 0px)
+    var(--space-600, 24px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-400, 16px);
+  align-self: stretch;
+  border-top: var(--stroke-border, 1px) solid
+    var(--border-default-tertiary, #e7e7e7);
+  width: 100%;
+  height: calc(100%);
+  min-height: 400px;
+}
+
+.header {
+  display: flex;
+  padding: var(--space-0, 0px);
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  width: 100%;
+}

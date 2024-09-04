@@ -1,0 +1,62 @@
+.avatarWrapper {
+  display: flex;
+  width: 32px;
+  height: 32px;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--background-primary-default, #52466c);
+  cursor: pointer;
+  .avatar {
+    color: var(--text-primary-on-primary, #fff);
+
+    text-transform: uppercase;
+  }
+}
+.avatarWrapper:hover {
+  background: var(--background-primary-default-hover, #75649d);
+}
+.avatarWrapper:active {
+  background: var(--background-primary-default-pressed, #625483);
+}
+
+.dark {
+  .avatarWrapper {
+    display: flex;
+    width: 32px;
+    height: 32px;
+
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid var(--border-gray-default, rgba(255, 255, 255, 0.2));
+
+    background: var(--background-primary-tertiary, rgba(255, 255, 255, 0.1));
+    cursor: pointer;
+    .avatar {
+      color: var(--text-primary-default, #f2f8ff);
+
+      text-transform: uppercase;
+    }
+  }
+  .avatarWrapper:hover {
+    border: 1px solid var(--border-gray-default, rgba(255, 255, 255, 0.2));
+
+    background: var(
+      --background-primary-tertiary-hover,
+      rgba(255, 255, 255, 0.45)
+    );
+    .avatar {
+      color: var(--text-gray-default, rgba(255, 255, 255, 0.9));
+    }
+  }
+  .avatarWrapper:active {
+    border: 1px solid var(--border-gray-default, rgba(255, 255, 255, 0.2));
+
+    background: var(
+      --background-primary-tertiary-pressed,
+      rgba(255, 255, 255, 0.2)
+    );
+  }
+}

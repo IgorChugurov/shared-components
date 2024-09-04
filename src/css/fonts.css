@@ -1,0 +1,69 @@
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../../public/fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800; /* Define the range of available weights */
+  font-style: normal;
+  font-stretch: 25% 151%;
+}
+
+/* Define the italic font with variable weight */
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../../public/fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 100 800;
+  font-style: italic;
+  font-stretch: 25% 151%;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+
+  font-weight: 100 900;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../../public/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+/**
+* This is a variable font
+* You can control variable axes as shown below:
+* font-variation-settings: wght 700.0;
+*
+* available axes:
+'wght' (range from 200.0 to 700.0
+*/
+@font-face {
+  font-family: "General Sans";
+  src:
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-Variable.woff2") format("woff2"),
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-Variable.woff") format("woff"),
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-Variable.ttf") format("truetype");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+/**
+  * This is a variable font
+  * You can control variable axes as shown below:
+  * font-variation-settings: wght 700.0;
+  *
+  * available axes:
+  'wght' (range from 200.0 to 700.0
+  */
+@font-face {
+  font-family: "General Sans";
+  src:
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-VariableItalic.woff2") format("woff2"),
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-VariableItalic.woff") format("woff"),
+    url("../../public/fonts/GeneralSans/WEB/fonts/GeneralSans-VariableItalic.ttf")
+      format("truetype");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: italic;
+}

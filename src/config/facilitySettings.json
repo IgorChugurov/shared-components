@@ -1,0 +1,18 @@
+{
+  "title": "Facility settings",
+  "collectionName": "companySettings",
+  "forServicePackage": {
+    "url": "/api/environment-values"
+  },
+  "forList": {
+    "searchBlock": "",
+
+    "buttonBlock": { "title": "" },
+    "columnsForGrid": []
+  },
+  "forEdit": {
+    "title": ["", ""],
+    "pageHeader": "",
+    "sections": []
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Projects",
+  "collectionName": "projects",
+  "forServicePackage": {
+    "url": "/api/projects",
+    "reloadEvents": {
+      "update": "reloadProjects",
+      "create": "reloadProjects",
+      "delete": "reloadProjects"
+    }
+  },
+  "reloadEventTitle": "reloadProjects",
+  "forList": {
+    "searchBlock": "",
+    "buttonBlock": { "title": "" },
+    "columnsForGrid": []
+  },
+  "forEdit": {
+    "title": ["", ""],
+    "pageHeader": "",
+    "sections": []
+  }
+}

@@ -1,0 +1,77 @@
+.tabsContainer {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-100, 4px);
+  border: 1px solid var(--border-default-tertiary, #e7e7e7);
+  border-left: none;
+  border-right: none;
+  .tab {
+    display: flex;
+    height: 24px;
+    padding: var(--space-100, 4px) var(--space-400, 16px);
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-200, 8px);
+    color: var(--text-gray-secondary, #6d6d6d);
+    border-radius: var(--radius-00, 0px);
+
+    border-left: var(--stroke-border, 1px) solid
+      var(--border-default-tertiary, #e7e7e7);
+    cursor: pointer;
+    background: var(--background-gray-default, #fff);
+    color: var(--text-gray-secondary, #6d6d6d);
+  }
+
+  .tab:first-child {
+    border-radius: var(--radius-100, 4px) var(--radius-00, 0px)
+      var(--radius-00, 0px) var(--radius-100, 4px);
+  }
+
+  .tab:last-child {
+    border-radius: var(--radius-00, 0px) var(--radius-100, 4px)
+      var(--radius-100, 4px) var(--radius-00, 0px);
+    border-right: var(--stroke-border, 1px) solid
+      var(--border-default-tertiary, #e7e7e7);
+  }
+  .active {
+    color: var(--text-gray-default, #262626);
+    background: var(--background-primary-tertiary, #e5e4f0);
+    cursor: default;
+  }
+  .tab:not(.active):hover {
+    color: var(--text-gray-default, #262626);
+    background: var(--background-primary-tertiary-hover, #b7b1d4);
+  }
+  /*  for the OPIE */
+  .tab {
+    background: var(--background-gray-default, #fff);
+    color: var(--text-gray-secondary, #6d6d6d);
+  }
+
+  .active {
+    color: var(--text-primary-on-primary, #fff);
+
+    background: var(--background-primary-default, #145ba6);
+  }
+  .tab:not(.active):hover {
+    color: var(--text-gray-default, #191919);
+    background: var(--background-primary-secondary, #f2f8ff);
+  }
+}
+
+.dark {
+  .tab {
+    background: var(--background-gray-default, #fff);
+    color: var(--text-gray-secondary, #6d6d6d);
+  }
+
+  .active {
+    color: var(--text-primary-on-primary, #fff);
+
+    background: var(--background-primary-default, #145ba6);
+  }
+  .tab:not(.active):hover {
+    color: var(--text-gray-default, #191919);
+    background: var(--background-primary-secondary, #f2f8ff);
+  }
+}

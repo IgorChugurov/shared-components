@@ -1,0 +1,136 @@
+.switch-container {
+  width: 100%;
+  display: flex;
+  padding: var(--space-0, 0px);
+  align-items: flex-start;
+  gap: var(--space-600, 24px);
+  align-self: stretch;
+}
+.switch-container .labelWrapper {
+  display: flex;
+  padding: var(--space-0, 0px) 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-100, 4px);
+  flex-grow: 1;
+  align-self: stretch;
+}
+.switch-container .input-containerSwitch {
+  display: flex;
+  padding: var(--space-250, 10px) 0px;
+  justify-content: center;
+  align-items: center;
+}
+.switch-container .input-containerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-150, 6px);
+  flex: 1 0 0;
+}
+
+/* Custom styles for the Switch component */
+.custom-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-switch.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.custom-switch-input {
+  display: none;
+}
+
+.custom-switch-slider {
+  position: relative;
+  width: 37px;
+  height: 14px;
+  background-color: var(--background-primary-tertiary, #e5e4f0);
+  border-radius: var(--radius-full, 9999px);
+  transition: 0.4s;
+}
+
+.custom-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px; /* Adjust to align properly */
+  bottom: -3px; /* Adjust to align properly */
+  background-color: var(--background-primary-default, #52466c);
+  border-radius: var(--radius-full, 9999px);
+  /* border: var(--stroke-border, 1px) solid
+      var(--border-primary-secondary, #8777b0); */
+  box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.15),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.16);
+  transition: 0.4s;
+}
+
+.custom-switch-input:checked + .custom-switch-slider {
+  background-color: var(--background-primary-tertiary, #e5e4f0);
+}
+
+.custom-switch-input:checked + .custom-switch-slider:before {
+  transform: translateX(17px); /* Adjust based on slider width */
+  background-color: var(--background-primary-default, #52466c);
+}
+
+.custom-switch-input:not(:checked) + .custom-switch-slider:before {
+  background-color: var(--background-gray-default, #fff);
+  /* border: var(--stroke-border, 1px) solid
+      var(--border-primary-secondary, #8777b0); */
+}
+
+.custom-switch.disabled .custom-switch-slider {
+  background-color: var(--background-gray-secondary, #f6f6f6);
+}
+
+.custom-switch.disabled .custom-switch-slider:before {
+  background-color: var(--background-gray-default-disabled, #f6f6f6);
+  border: none; /* Remove border for disabled state */
+}
+
+.custom-switch-input:focus + .custom-switch-slider {
+  outline: none; /* Remove focus outline */
+  box-shadow: none; /* Remove any box-shadow */
+}
+
+.input-switch {
+  outline: none !important; /* Remove focus outline */
+  box-shadow: none !important; /* Remove any box-shadow */
+}
+.input-switch .MuiSwitch-switchBase:focus {
+  outline: none !important; /* Remove focus outline */
+  box-shadow: none !important; /* Remove any box-shadow */
+}
+
+.input-switch .MuiSwitch-switchBase.Mui-checked {
+  color: var(--background-primary-default);
+  background: var(--background-primary-tertiary, #e5e4f0);
+}
+
+.input-switch .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  color: var(--background-gray-secondary-pressed, #e7e7e7);
+}
+
+.input-switch .MuiSwitch-switchBase {
+  color: var(--background-gray-default, #fff);
+  background-color: var(--background-gray-secondary-pressed);
+}
+
+.input-switch .MuiSwitch-track {
+  color: var(--background-gray-secondary-pressed, #e7e7e7);
+}
+
+.input-switch .MuiSwitch-switchBase:focus {
+  outline: none; /* Убирает обводку при фокусе */
+}
+
+.input-switch .MuiSwitch-track {
+  border: none; /* Убирает обводку трека */
+}

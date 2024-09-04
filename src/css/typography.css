@@ -1,0 +1,104 @@
+.body-s-medium {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeS, 12px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-strong, 500);
+  line-height: 115%; /* 13.8px */
+}
+.body-s-regular {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeS, 12px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-regular, 400);
+  line-height: 115%; /* 13.8px */
+}
+
+.body-m-medium {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeM, 14px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-strong, 500);
+  line-height: 115%; /* 16.1px */
+}
+.body-m-regular {
+  /* Body/M/Regular */
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeM, 14px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-regular, 400);
+  line-height: 115%; /* 16.1px */
+}
+.body-l-regular {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeL, 16px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-regular, 400);
+  line-height: 115%; /* 18.4px */
+}
+.body-l-medium {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeL, 16px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-strong, 500);
+  line-height: 115%; /* 18.4px */
+}
+.body-l-bold {
+  font-family: var(--body-font, Inter);
+  font-size: var(--scale-03, 16px);
+  font-style: normal;
+  font-weight: var(--weight-bold, 700);
+  line-height: 135%; /* 21.6px */
+}
+
+.headings-h1 {
+  font-family: var(--title-hero-font-family, "General Sans");
+  font-size: var(--title-hero-size, 40px);
+  font-style: normal;
+  font-weight: var(--title-hero-font-weight, 600);
+  line-height: 120%; /* 48px */
+  letter-spacing: -1.2px;
+}
+.headings-h2 {
+  font-family: var(--heading-font-family, "General Sans");
+  font-size: var(--heading-size, 20px);
+  font-style: normal;
+  font-weight: var(--heading-font-weight, 500);
+  line-height: 120%; /* 24px */
+}
+.headings-h3 {
+  font-family: var(--heading-font-family, "General Sans");
+  font-size: var(--heading-size-s, 20px);
+  font-style: normal;
+  font-weight: var(--heading-font-weight, 500);
+  line-height: 120%; /* 24px */
+}
+
+.mono-s-medium {
+  font-family: var(--mono-font-family, "Roboto Mono");
+  font-size: var(--mono-size-s, 12px);
+  font-style: normal;
+  font-weight: var(--mono-font-weight-medium, 500);
+  line-height: 100%; /* 12px */
+}
+
+.body-s-multiline {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeS, 12px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-regular, 400);
+  line-height: 140%; /* 16.8px */
+}
+.body-m-multiline {
+  font-family: var(--body-font-family, Inter);
+  font-size: var(--body-sizeM, 14px);
+  font-style: normal;
+  font-weight: var(--body-font-weight-regular, 400);
+  line-height: 140%; /* 19.6px */
+}
+
+.textWithEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}

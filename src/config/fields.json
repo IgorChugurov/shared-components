@@ -1,0 +1,238 @@
+{
+  "title": "Fields",
+  "collectionName": "fields",
+  "forServicePackage": {
+    "url": "/api/entity-fields",
+
+    "reloadEvents": {
+      "update": "reloadFields",
+      "create": "reloadFields",
+      "delete": "reloadFields"
+    }
+  },
+  "reloadEventTitle": "reloadFields",
+  "forList": {
+    "searchBlock": "Search for fields",
+
+    "buttonBlock": { "title": "New fields" },
+    "columnsForGrid": [
+      {
+        "field": "name",
+        "headerName": "Name",
+        "flex": 1,
+        "type": "openEditPage"
+      },
+
+      {
+        "field": "actions",
+        "headerName": "",
+        "type": "actions",
+        "width": 100,
+        "options": {
+          "actions": [
+            {
+              "action": "edit"
+            }
+          ]
+        }
+      }
+    ],
+    "forEmptyList": {
+      "title": "You have no fields",
+      "messages": [
+        "Fields that you create will end up here.",
+        "Add a fields to get started."
+      ]
+    },
+    "messages": {
+      "afterCreate": "Field was created successfully!",
+      "afterDelete": "Field was deleted successfully!",
+      "afterEdit": "Field was updated successfully!",
+      "forDeleteModal": {
+        "modalText": "Are you sure you want to delete ${item.name}? This action cannot be undone.",
+        "modalTitle": "Confirm deleting field",
+        "buttonTitle": "Delete"
+      }
+    }
+  },
+  "forEdit": {
+    "title": ["Create new field", "Edit Felds"],
+    "pageHeader": "Field details",
+    "buttonText": { "create": "Create", "edit": "Update" },
+    "sections": [
+      {
+        "title": "Field Identification",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Field name",
+            "placeholder": "Enter name",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Name is required",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "type",
+            "label": "Field type",
+            "placeholder": "Chose field type",
+            "type": "select",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Field type is required",
+            "forEditPageDisabled": true,
+            "options": [
+              { "id": "text", "name": "Text" },
+              { "id": "number", "name": "Number" },
+              { "id": "boolean", "name": "Boolean" },
+              { "id": "date", "name": "Date" },
+              { "id": "textarea", "name": "Textarea" },
+              { "id": "select", "name": "select" },
+              { "id": "multipleSelect", "name": "multiple select" }
+            ]
+          },
+          {
+            "name": "selectorSourceId",
+            "label": "Select entity",
+            "placeholder": "Select entity",
+            "type": "select",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false,
+            "options": [],
+            "collectionName": "entities",
+            "foreignKey": "type",
+            "foreignKeyValue": "select",
+            "exclude": "parentEntityId"
+          }
+        ]
+      },
+      {
+        "title": "Behavior",
+        "fields": [
+          {
+            "name": "required",
+            "label": "Required",
+            "placeholder": "Indicate whether the field is mandatory",
+            "type": "switch",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "requiredText",
+            "label": "Required text",
+            "placeholder": "Enter required text",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          }
+        ]
+      },
+      {
+        "title": "Field appearance and information",
+        "fields": [
+          {
+            "name": "label",
+            "label": "Label name",
+            "placeholder": "Enter label",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Label is required",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "placeholder",
+            "label": "Placeholder",
+            "placeholder": "Enter placeholder",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "Placeholder is required",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "description",
+            "label": "Description",
+            "placeholder": "Enter description",
+            "type": "texa",
+            "multiline": true,
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "Description is required",
+            "forEditPageDisabled": false
+          }
+        ]
+      },
+
+      {
+        "title": "Field Display",
+
+        "fields": [
+          {
+            "name": "forCreatePage",
+            "label": "Visible on create",
+            "placeholder": "Indicate if field should appear on creation",
+            "type": "switch",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "forEditPage",
+            "label": "Visible on edit",
+            "placeholder": "Indicate if field should appear on editing",
+            "type": "switch",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          },
+
+          {
+            "name": "forEditPageDisabled",
+            "label": "Disable on editing",
+            "placeholder": "Specify if field should be disabled on editing",
+            "type": "switch",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          }
+        ]
+      },
+      {
+        "title": "Deletion",
+        "button": {
+          "action": "delete",
+          "title": "Delete field",
+          "options": {
+            "modalText": "Are you sure you want to delete ${item.name}?",
+            "modalTitle": "Confirm deleting!",
+            "confirmWord": "Delete!",
+            "confirmText": "To confirm, please type the word Delete!"
+          }
+        },
+        "fields": []
+      }
+    ]
+  }
+}

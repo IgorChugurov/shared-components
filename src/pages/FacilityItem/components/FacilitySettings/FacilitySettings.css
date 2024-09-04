@@ -1,0 +1,63 @@
+.facilitySettings-container {
+  display: flex;
+  padding: var(--space-200, 8px) var(--space-5200, 208px) 0px
+    var(--space-5200, 208px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-400, 16px);
+  align-self: stretch;
+  min-height: calc(100vh - 50px);
+}
+.facilitySettings-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-100, 4px);
+  align-self: stretch;
+  color: var(--text-gray-default, #262626);
+}
+.facilitySettings-card {
+  display: flex;
+  padding: var(--space-600, 24px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-600, 24px);
+  align-self: stretch;
+  border-radius: var(--radius-400, 16px);
+  border: var(--stroke-border, 1px) solid
+    var(--border-default-tertiary, #e7e7e7);
+  background: var(--background-gray-default, #fff);
+  /* card shadow/S */
+  box-shadow: 0px 2px 8px 0px rgba(171, 166, 194, 0.3);
+}
+/* .cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-600, 24px);
+  align-self: stretch;
+  color: var(--text-gray-default, #262626);
+  width: 100%;
+  justify-content: space-between;
+}
+.cardBody {
+  display: flex;
+  padding: var(--space-0, 0px);
+  align-items: flex-start;
+  gap: var(--space-600, 24px);
+  align-self: stretch;
+}
+.cardBodyTitle {
+  display: flex;
+  padding: var(--space-0, 0px) 0px;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-100, 4px);
+  flex: 1 0 0;
+  align-self: stretch;
+  color: var(--text-gray-default, #262626);
+}
+.cartBodyInputs {
+  flex: 1 0 0;
+} */

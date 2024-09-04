@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-400, 16px);
+  align-self: stretch;
+  width: 100%;
+  height: calc(100%);
+  min-height: 400px;
+}
+
+.header {
+  display: flex;
+  padding: var(--space-0, 0px);
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  width: 100%;
+}
+.headerLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-400, 16px);
+}
+.cheaps {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100, 4px);
+}

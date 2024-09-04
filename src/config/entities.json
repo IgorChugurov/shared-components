@@ -1,0 +1,140 @@
+{
+  "title": "Entities",
+  "collectionName": "entities",
+  "forServicePackage": {
+    "url": "/api/entity-definitions",
+
+    "reloadEvents": {
+      "update": "reloadEntities",
+      "create": "reloadEntities",
+      "delete": "reloadEntities"
+    }
+  },
+  "reloadEventTitle": "reloadEntities",
+  "forList": {
+    "searchBlock": "Search for entities",
+
+    "buttonBlock": { "title": "New entity" },
+    "columnsForGrid": [
+      {
+        "field": "name",
+        "headerName": "Name",
+        "flex": 1,
+        "type": "naigateToDetails",
+        "additioonalUrl": ""
+      },
+
+      { "field": "tableName", "headerName": "Table name", "width": 150 },
+      { "field": "url", "headerName": "Url", "width": 150 },
+      { "field": "type", "headerName": "Type", "width": 150 },
+
+      {
+        "field": "actions",
+        "headerName": "",
+        "type": "actions",
+        "width": 100,
+        "options": {
+          "actions": [
+            {
+              "action": "edit",
+              "link": true,
+              "icon": "setting",
+              "additioonalUrl": ""
+            }
+          ]
+        }
+      }
+    ],
+    "forEmptyList": {
+      "title": "You have no entities",
+      "messages": [
+        "Entities that you create will end up here.",
+        "Add a entity to get started."
+      ]
+    },
+    "messages": {
+      "afterCreate": "Entity was created successfully!",
+      "afterDelete": "Entity was deleted successfully!",
+      "afterEdit": "Entity was updated successfully!",
+      "forDeleteModal": {
+        "modalText": "Are you sure you want to delete ${item.name}? This action cannot be undone.",
+        "modalTitle": "Confirm deleting entity",
+        "buttonTitle": "Delete"
+      }
+    }
+  },
+  "forEdit": {
+    "title": ["Create new entity", "Edit entity"],
+    "pageHeader": "Entityt details",
+    "buttonText": { "create": "Create", "edit": "Update" },
+    "sections": [
+      {
+        "title": "Info",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Entity name",
+            "placeholder": "Enter name",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Name is required",
+            "forEditPageDisabled": false
+          },
+
+          {
+            "name": "tableName",
+            "label": "Table name",
+            "placeholder": "Enter table name",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Table name is required",
+            "forEditPageDisabled": false
+          },
+
+          {
+            "name": "type",
+            "label": "Select type",
+            "placeholder": "Select type",
+            "type": "select",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Type is required",
+            "forEditPageDisabled": true,
+            "options": [
+              { "id": "primary", "name": "Primary" },
+              { "id": "secondary", "name": "Secondary" },
+              { "id": "tertiary", "name": "Tertiary" }
+            ]
+          },
+          {
+            "name": "url",
+            "label": "Url",
+            "placeholder": "Enter url",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Url is required",
+            "forEditPageDisabled": false
+          },
+          {
+            "name": "description",
+            "label": "Description",
+            "placeholder": "Enter description",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": false,
+            "requiredText": "",
+            "forEditPageDisabled": false
+          }
+        ]
+      }
+    ]
+  }
+}

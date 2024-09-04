@@ -1,0 +1,15 @@
+.container {
+  color: var(--text-gray-secondary, #6d6d6d);
+  display: flex;
+  padding: var(--space-200, 8px) var(--space-300, 12px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-200, 8px);
+  border-radius: var(--space-150, 6px);
+  border: none;
+  cursor: pointer;
+}
+.container.active {
+  color: var(--text-gray-default, #262626);
+  background: var(--background-gray-tertiary, #e7e7e7);
+}

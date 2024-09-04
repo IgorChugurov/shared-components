@@ -1,0 +1,85 @@
+//import SomeComponent from "./components/someComponents/SomeComponent";
+import { GlobalStateProvider } from "./context/GlobalStateProvider";
+import { RouterProvider } from "react-router-dom";
+import ErrorBoundary from "./components/error-boundary";
+
+import "./css/index.css";
+import "./css/fonts.css";
+import "./css/typography.css";
+import "./css/colors.css";
+import "./css/inputs.css";
+import "./css/select.css";
+import "./css/switch.css";
+import "./css/radio.css";
+import "./css/menu.css";
+import "./css/buttons.css";
+import "./css/iconButtons.css";
+import "./css/modal.css";
+import "./css/customDataGrid.css";
+import "./index.css";
+
+import { createBrowserRouter } from "react-router-dom";
+import NavbarApp from "./components/navbar/NavbarApp.tsx";
+import Home from "./pages/home/Home.tsx";
+import {
+  Entities,
+  Entity,
+  Facilities,
+  Settings,
+  Users,
+} from "./routeComponents.tsx";
+import { Icon_logo } from "./Logo.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <div className="mainContainer">
+        <NavbarApp darkTheme={true} LogoIcon={Icon_logo} />
+        <Home />
+      </div>
+    ),
+    children: [
+      {
+        path: "/facilities",
+        element: <Facilities />,
+        children: [
+          {
+            path: "/facilities/:facilityId/entities",
+            element: <Entities />,
+            children: [
+              {
+                path: "/facilities/:facilityId/entities/:entityId",
+                element: <Entity />,
+              },
+            ],
+          },
+          {
+            path: "/facilities/:facilityId/users",
+            element: <Users />,
+          },
+          {
+            path: "/facilities/:facilityId/settings",
+            element: <Settings />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/*",
+    element: <div>any</div>,
+  },
+]);
+
+const App: React.FC = () => {
+  return (
+    <ErrorBoundary>
+      <GlobalStateProvider>
+        <RouterProvider router={router} />
+      </GlobalStateProvider>
+    </ErrorBoundary>
+  );
+};
+
+export default App;

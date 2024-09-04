@@ -1,0 +1,91 @@
+{
+  "title": "Groups settings",
+  "collectionName": "groupCompanies",
+  "forServicePackage": {
+    "url": "/api/groups",
+    "reloadEvents": {
+      "delete": "reloadGroups",
+      "create": "reloadGroups",
+      "update": "reloadGroups"
+    }
+  },
+  "reloadEventTitle": "reloadGroups",
+  "forList": {
+    "searchBlock": "Search for groups",
+    "buttonBlock": { "title": "New group" },
+    "columnsForGrid": [
+      {
+        "field": "name",
+        "headerName": "Name",
+        "flex": 1,
+        "type": "naigateToDetails",
+        "additioonalUrl": "/facilities"
+      },
+
+      {
+        "field": "createdAt",
+        "headerName": "Created",
+        "width": 250,
+        "type": "date"
+      },
+      {
+        "field": "actions",
+        "headerName": "",
+        "type": "actions",
+        "width": 50,
+        "options": {
+          "actions": [
+            {
+              "action": "edit",
+              "link": true,
+              "icon": "setting",
+              "additioonalUrl": "/facilities"
+            }
+          ]
+        }
+      }
+    ],
+
+    "forEmptyList": {
+      "title": "You have no groups!",
+      "messages": [
+        "Groups that you create will end up here.",
+        "Add a group to get started."
+      ]
+    },
+
+    "messages": {
+      "afterCreate": "Group was created successfully!",
+      "afterDelete": "Group was deleted successfully.",
+      "afterEdit": "Group was updated successfully!",
+      "forDeleteModal": {
+        "modalText": "Are you sure you want to delete ${item.name}?This action cannot be undone.",
+        "modalTitle": "Confirm deleting group",
+        "buttonTitle": "Delete",
+        "confirmWord": "",
+        "confirmText": ""
+      }
+    }
+  },
+  "forEdit": {
+    "title": ["Create new group", "Edit group"],
+    "pageHeader": "Group details",
+    "sections": [
+      {
+        "title": "Info",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Group",
+            "placeholder": "Enter group name",
+            "type": "text",
+            "forEditPage": "yes",
+            "forCreatePage": "yes",
+            "required": true,
+            "requiredText": "Please enter a group name"
+          }
+        ]
+      }
+    ]
+  }
+}
