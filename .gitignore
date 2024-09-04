@@ -28,3 +28,4 @@ dist-ssr
 .development.env
 .production.env
 .vite
+package-lock.json

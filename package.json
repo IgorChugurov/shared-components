@@ -23,7 +23,6 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.0",
     "react-router-dom": "^6.24.0",
-    "requestwithrefreshtoken": "^0.0.12",
     "yup": "^1.4.0"
   },
   "devDependencies": {

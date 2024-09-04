@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import { getCurrentFacilityLS, getCurrentProjectLS } from "./localStorage";
 interface IRequestParams {
   url: string;
@@ -49,14 +48,6 @@ function createRequestService({
   //to ensure that only one token refresh request is made at a time.
   let isRefreshingAccessToken = false;
 
-  const decodeToken = (user: any) => {
-    let decodedToken = { exp: 0 };
-    if (user && user.accessToken && user.accessToken.length > 10) {
-      decodedToken = jwtDecode(user.accessToken);
-    }
-    return decodedToken;
-  };
-
   const handleSuccessfulTokenRefresh = async (user: any): Promise<any> => {
     if (!isRefreshingAccessToken) {
       isRefreshingAccessToken = true;
@@ -73,20 +64,6 @@ function createRequestService({
 
   const send = async (data: IRequestParams) => {
     const user = getUser();
-
-    // const decodedToken = decodeToken(user);
-    // if (decodedToken.exp - 20 < Date.now() / 1000 && decodedToken.exp !== 0) {
-    //   try {
-    //     await handleSuccessfulTokenRefresh(user);
-    //   } catch (error) {
-    //     console.error("Failed to refresh token:", error);
-    //     accessTokenPromise = null;
-    //     setUser(null);
-    //     window.location.href = "/";
-    //     throw error;
-    //     // clear the old promise so that the next request can start trying to update the token again
-    //   }
-    // }
     if (user.exp && user.exp - Date.now() / 1000 < 10) {
       try {
         await handleSuccessfulTokenRefresh(user);
