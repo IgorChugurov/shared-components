@@ -78,7 +78,7 @@ const EntityItem = ({
           if (entity) {
             // create service for items  this entity
             servicesPackage[entity.tableName] = new ApiService<any>(
-              "/api/groups",
+              entity.url,
               "reloadItems"
             );
           }
