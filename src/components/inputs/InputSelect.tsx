@@ -96,7 +96,7 @@ export const InputSelect = <T,>({
                   onClose: handleMenuClose,
                   PaperProps: {
                     className: "menuPaper",
-                    sx: { marginTop: "12px", maxHeight: "300px" },
+                    // sx: { marginTop: "12px", maxHeight: "300px" },
                   },
                 }}
                 renderValue={(selValue) => {

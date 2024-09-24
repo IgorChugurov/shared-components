@@ -99,7 +99,7 @@ export const InputMultipleSelect = <T,>({
                       onClose: handleMenuClose,
                       PaperProps: {
                         className: "menuPaper",
-                        sx: { maxHeight: "300px", marginTop: "-8px" },
+                        // sx: { maxHeight: "300px", marginTop: "-8px" },
                       },
                     }}
                     renderValue={(selected) => {
