@@ -1,7 +1,8 @@
 import createRequestService from "./createRequestService";
 import { initConfig, LSPrefix } from "../config/initConfig";
 const refreshTokenUrl = initConfig.AuthData.refreshAuthSessionUrl;
-const { VITE_AUTHHEADER, VITE_API_URL } = import.meta.env;
+const VITE_AUTHHEADER = process.env.VITE_AUTHHEADER; //import.meta.env;
+const VITE_API_URL = process.env.VITE_API_URL; //import.meta.env;
 
 const requestService = createRequestService({
   lskey: `${LSPrefix}-user`,

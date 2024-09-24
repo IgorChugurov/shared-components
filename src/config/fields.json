@@ -168,7 +168,7 @@
             "name": "description",
             "label": "Description",
             "placeholder": "Enter description",
-            "type": "texa",
+            "type": "textarea",
             "multiline": true,
             "forEditPage": "yes",
             "forCreatePage": "yes",

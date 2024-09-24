@@ -54,7 +54,7 @@ textarea {
   text-transform: none;
   outline: 0;
   justify-content: space-between;
-  max-height: 40px;
+
   height: 40px;
   color: var(--text-gray-default, #262626);
   /* Body/M/Regular */
@@ -69,6 +69,9 @@ textarea {
   border: var(--stroke-border, 1px) solid
     var(--border-default-secondary, #dcdcdc);
   background: var(--background-gray-secondary, #f8f7fb);
+}
+input {
+  max-height: 40px;
 }
 
 textarea::placeholder,

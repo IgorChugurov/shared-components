@@ -18,10 +18,9 @@ import { InputSelect } from "../../components/inputs/InputSelect";
 import { InputSwitch } from "../../components/inputs/InputSwitch";
 import { InputRadio } from "../../components/inputs/InputRadio";
 import { InputText } from "../../components/inputs/InputText";
-
+const VITE_AUTHHEADER = process.env.VITE_AUTHHEADER; //import.meta.env;
+const VITE_API_URL = process.env.VITE_API_URL; //import.meta.env;
 const Login = () => {
-  const { VITE_AUTHHEADER, VITE_API_URL } = import.meta.env;
-
   const { AuthData } = useContext(GlobalStateContext);
 
   const { fields, loginAndGetTokenUrl } = AuthData;
