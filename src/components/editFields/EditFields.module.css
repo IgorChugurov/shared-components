@@ -20,6 +20,10 @@
   gap: var(--space-600, 24px);
   align-self: stretch;
 }
+.borderTop {
+  border-top: var(--stroke-border, 1px) solid
+    var(--border-gray-default, #e3e3e3);
+}
 .fieldWrapper.borderTop {
   border-top: var(--stroke-border, 1px) solid
     var(--border-default-tertiary, #e7e7e7);

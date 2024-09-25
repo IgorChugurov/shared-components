@@ -444,3 +444,6 @@ a {
 .hidden {
   display: none !important;
 }
+.capitalize-first-letter::first-letter {
+  text-transform: capitalize;
+}

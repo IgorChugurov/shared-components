@@ -1,6 +1,6 @@
 //import SomeComponent from "./components/someComponents/SomeComponent";
 import { GlobalStateProvider } from "./context/GlobalStateProvider";
-import { RouterProvider } from "react-router-dom";
+import { Navigate, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "./components/error-boundary";
 
 import "./css/index.css";
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <div>any</div>,
+    element: <Navigate to="/" replace={true} />, // Redirect to home page
   },
 ]);
 

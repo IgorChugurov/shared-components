@@ -32,7 +32,7 @@ const EditFields = ({
   transformData,
   emptyText = "No fields to display",
 }: {
-  fields: (IEditField & { description?: string })[];
+  fields: (IEditField & { description?: string; disabled?: boolean })[];
   currentItem: any;
   itemService: any;
   title: string;
@@ -60,13 +60,15 @@ const EditFields = ({
       "${item.name}",
       currentItem?.name || "item"
     ) || "Are you sure you want to do this?";
+
   const resolverSchema = Yup.object().shape(createSchema(fields));
+
   const methods = useForm({
     mode: "onTouched",
     resolver: yupResolver(resolverSchema),
     defaultValues: currentItem,
   });
-  const { control, formState, handleSubmit } = methods;
+  const { control, formState, handleSubmit, watch } = methods;
   const { isDirty } = formState;
 
   const onSubmitUpload = handleSubmit(async (data) => {
@@ -91,7 +93,6 @@ const EditFields = ({
   const [buttonTitle, setButtonTitle] = useState("");
 
   const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("?????");
     e.preventDefault();
     setAction("delete");
   };
@@ -159,131 +160,193 @@ const EditFields = ({
       ) : (
         <FormProvider {...methods}>
           <form onSubmit={onSubmitUpload} className={styles.form}>
-            {fields.map((field, i) => {
+            {fields.map((field, i) => (
+              <React.Fragment key={field.name}>
+                {renderField({
+                  field,
+                  control,
+                  currentItem,
+                  i,
+                  handleDeleteClick,
+                })}
+              </React.Fragment>
+            ))}
+            {/* {fields.map((field, i) => {
               switch (field.type) {
                 case "switch":
                   return (
-                    <div
-                      className={`${styles.fieldWrapper} ${
-                        i ? styles.borderTop : ""
-                      }`}
-                      key={field.name}
-                    >
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <InputSwitchWithoutLabel
-                          key={field.name}
-                          name={field.name}
-                          control={control}
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div
+                        className={`${styles.fieldWrapper} ${
+                          i ? styles.borderTop : ""
+                        }`}
+                        key={field.name}
+                      >
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
                         />
-                      </div>{" "}
-                    </div>
+                        <div className={styles.inputWrapper}>
+                          <InputSwitchWithoutLabel
+                            key={field.name}
+                            name={field.name}
+                            control={control}
+                          />
+                        </div>{" "}
+                      </div>
+                    </>
                   );
                 case "select":
                   return (
-                    <div
-                      className={`${styles.fieldWrapper} ${
-                        i ? styles.borderTop : ""
-                      }`}
-                      key={field.name}
-                    >
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <InputSelectWithoutLabel
-                          {...field}
-                          control={control}
-                          disabled={Boolean(
-                            currentItem.id && field.forEditPageDisabled
-                          )}
-                          options={field.options || []}
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div
+                        className={`${styles.fieldWrapper} ${
+                          i ? styles.borderTop : ""
+                        }`}
+                        key={field.name}
+                      >
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
                         />
+                        <div className={styles.inputWrapper}>
+                          <InputSelectWithoutLabel
+                            {...field}
+                            control={control}
+                            disabled={Boolean(
+                              currentItem.id && field.forEditPageDisabled
+                            )}
+                            options={field.options || []}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    </>
+                  );
+                case "multipleSelect":
+                  return (
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div
+                        className={`${styles.fieldWrapper} ${
+                          i ? styles.borderTop : ""
+                        }`}
+                        key={field.name}
+                      >
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
+                        />
+                        <div className={styles.inputWrapper}>
+                          <InputMultipleSelectWithoutLabel
+                            {...field}
+                            control={control}
+                            disabled={Boolean(
+                              currentItem.id && field.forEditPageDisabled
+                            )}
+                            options={[
+                              { id: "en", name: "en" },
+                              { name: "fr", id: "fr" },
+                              { name: "de", id: "de" },
+                              { name: "es", id: "es" },
+                            ]}
+                          />
+                        </div>
+                      </div>
+                    </>
                   );
                 case "radio":
                   return (
-                    <div
-                      className={`${styles.fieldWrapper} ${
-                        i ? styles.borderTop : ""
-                      }`}
-                      key={field.name}
-                    >
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <InputRadio {...field} control={control} />
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div
+                        className={`${styles.fieldWrapper} ${
+                          i ? styles.borderTop : ""
+                        }`}
+                        key={field.name}
+                      >
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
+                        />
+                        <div className={styles.inputWrapper}>
+                          <InputRadio {...field} control={control} />
+                        </div>
                       </div>
-                    </div>
+                    </>
                   );
                 case "deleteButton":
                   return (
-                    <div
-                      className={`${styles.fieldWrapper} ${
-                        i ? styles.borderTop : ""
-                      }`}
-                      key={field.name}
-                    >
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <button
-                          className="button dangerButton"
-                          onClick={handleDeleteClick}
-                        >
-                          <span className="body-l-medium">
-                            {field.placeholder}
-                          </span>
-                        </button>
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div
+                        className={`${styles.fieldWrapper} ${
+                          i ? styles.borderTop : ""
+                        }`}
+                        key={field.name}
+                      >
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
+                        />
+                        <div className={styles.inputWrapper}>
+                          <button
+                            className="button dangerButton"
+                            onClick={handleDeleteClick}
+                          >
+                            <span className="body-l-medium">
+                              {field.placeholder}
+                            </span>
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    </>
                   );
                 case "textarea":
                   return (
-                    <div className={styles.fieldWrapper} key={field.name}>
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <InputText
-                          type={"textarea"}
-                          key={field.name}
-                          name={field.name}
-                          placeholder={field.placeholder}
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div className={styles.fieldWrapper} key={field.name}>
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
                         />
+                        <div className={styles.inputWrapper}>
+                          <InputText
+                            type={"textarea"}
+                            key={field.name}
+                            name={field.name}
+                            placeholder={field.placeholder}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    </>
                   );
 
                 default:
                   return (
-                    <div className={styles.fieldWrapper} key={field.name}>
-                      <Label
-                        label={field.label || ""}
-                        description={field.description || ""}
-                      />
-                      <div className={styles.inputWrapper}>
-                        <InputText
-                          type={field.type}
-                          key={field.name}
-                          name={field.name}
-                          placeholder={field.placeholder}
+                    <>
+                      {i !== 0 && <div className={styles.borderTop}></div>}
+                      <div className={styles.fieldWrapper} key={field.name}>
+                        <Label
+                          label={field.label || ""}
+                          description={field.description || ""}
                         />
+                        <div className={styles.inputWrapper}>
+                          <InputText
+                            disabled={Boolean(field.disabled)}
+                            type={field.type}
+                            key={field.name}
+                            name={field.name}
+                            placeholder={field.placeholder}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    </>
                   );
               }
-            })}
+            })} */}
           </form>
         </FormProvider>
       )}
@@ -315,8 +378,139 @@ const Label = ({
 }) => {
   return (
     <div className={styles.labelWrapper}>
-      <span className="body-m-meduim text-default">{label}</span>
+      <span className="body-m-medium text-default">{label}</span>
       <span className="body-s-multiline text-secondary">{description}</span>
     </div>
   );
+};
+
+interface FieldWrapperProps {
+  field: IEditField;
+  i: number;
+  children: React.ReactNode;
+}
+
+const FieldWrapper: React.FC<FieldWrapperProps> = ({ children, field, i }) => (
+  <>
+    {/* {i !== 0 && <div className={styles.borderTop}></div>} */}
+    <div
+      className={`${styles.fieldWrapper} ${i ? styles.borderTop : ""}`}
+      key={field.name}
+    >
+      {children}
+    </div>
+  </>
+);
+interface RenderFieldProps {
+  field: IEditField & { description?: string; disabled?: boolean };
+  control: any;
+  currentItem: { id?: string };
+  i: number;
+  handleDeleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const renderField = ({
+  field,
+  control,
+  currentItem,
+  i,
+  handleDeleteClick,
+}: RenderFieldProps) => {
+  switch (field.type) {
+    case "switch":
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <InputSwitchWithoutLabel
+              key={field.name}
+              name={field.name}
+              control={control}
+            />
+          </div>
+        </FieldWrapper>
+      );
+    case "select":
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <InputSelectWithoutLabel
+              {...field}
+              control={control}
+              disabled={Boolean(currentItem.id && field.forEditPageDisabled)}
+              options={field.options || []}
+            />
+          </div>
+        </FieldWrapper>
+      );
+
+    case "radio":
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <InputRadio {...field} control={control} />
+          </div>
+        </FieldWrapper>
+      );
+    case "deleteButton":
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <button className="button dangerButton" onClick={handleDeleteClick}>
+              <span className="body-l-medium">{field.placeholder}</span>
+            </button>
+          </div>
+        </FieldWrapper>
+      );
+    case "textarea":
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <InputText
+              type="textarea"
+              key={field.name}
+              name={field.name}
+              placeholder={field.placeholder}
+            />
+          </div>
+        </FieldWrapper>
+      );
+    default:
+      return (
+        <FieldWrapper field={field} i={i}>
+          <Label
+            label={field.label || ""}
+            description={field.description || ""}
+          />
+          <div className={styles.inputWrapper}>
+            <InputText
+              disabled={Boolean(field.disabled)}
+              type={field.type}
+              key={field.name}
+              name={field.name}
+              placeholder={field.placeholder}
+            />
+          </div>
+        </FieldWrapper>
+      );
+  }
 };
