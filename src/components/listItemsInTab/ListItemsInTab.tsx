@@ -25,14 +25,16 @@ const ListsItemsInTab = ({
   params = {},
   setModalCreateOpen,
   setCurrentItem,
+  headers,
 }: {
   initData: IOptionsListItem;
   searchState: string;
   params?: any; // predifined params for request to the server
   setModalCreateOpen?: Dispatch<SetStateAction<boolean>>; // function to open edit modal from parent component for update entity
   setCurrentItem?: (d: any) => void;
+  headers?: any;
 }) => {
-  //console.log(params);
+  //console.log(headers);
   const { forList, title, collectionName, reloadEventTitle } = initData;
 
   const { columnsForGrid, forEmptyList, messages } = forList;
@@ -62,7 +64,7 @@ const ListsItemsInTab = ({
   useEffect(() => {
     if (!paginate.loaded && itemsService && itemsService.getMany) {
       itemsService
-        .getMany(paginate, params)
+        .getMany(paginate, params, headers)
         .then((res: any) => {
           const data = res.items || [];
           setItems(

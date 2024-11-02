@@ -142,6 +142,7 @@ function createRequestService({
   };
 
   const getUrlAndRequest = (data: IRequestParams) => {
+    //console.log(data.headers);
     const currentProject = getCurrentProjectLS();
     const currentFacility = getCurrentFacilityLS() || "";
     const headers: HeadersType = {

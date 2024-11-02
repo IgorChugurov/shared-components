@@ -84,7 +84,10 @@ const EntityItem = ({
           }
         })
         .then(() => {
-          const options = { params: { entityDefinitionId: entityId } };
+          const options = {
+            params: { entityDefinitionId: entityId },
+            headers: { entityDefinitionId: entityId },
+          };
           return fieldsService.getAll(options);
         })
         .then((res: any) => {

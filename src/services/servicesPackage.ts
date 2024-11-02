@@ -40,7 +40,11 @@ export class ApiService<T> {
       sendRequest(req).then(resolve, reject);
     });
   };
-  getMany = (paginate?: IPaginate, params?: any): Promise<IListResponse<T>> => {
+  getMany = (
+    paginate?: IPaginate,
+    params?: any,
+    headers?: any
+  ): Promise<IListResponse<T>> => {
     return new Promise((resolve, reject) => {
       const req = {
         url: `${this.endpoint}`,
@@ -51,6 +55,7 @@ export class ApiService<T> {
         search: paginate?.search,
         limit: paginate?.perPage,
         params: params,
+        headers: headers,
         skip:
           (paginate?.perPage || 0) *
           (paginate?.currentPage ? paginate?.currentPage - 1 : 0),

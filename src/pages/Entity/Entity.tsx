@@ -26,6 +26,7 @@ const Entity = ({
   initDataFields: IOptionsListItem;
   initTab?: number;
 }) => {
+  console.log("?????????");
   const [loading, setLoading] = useState<boolean>(false);
   const [searchState, setSearchState] = useState<string>("");
   const {
