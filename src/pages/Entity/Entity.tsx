@@ -202,6 +202,7 @@ const Entity = ({
               setModalCreateOpen={setModalCreateOpen}
               setCurrentItem={setCurrentItem}
               params={{ entityDefinitionId: entityId }}
+              headers={{ entityDefinitionId: entityId }}
             />
           </>
         )}

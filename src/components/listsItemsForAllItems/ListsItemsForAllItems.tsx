@@ -14,6 +14,7 @@ const ListsItemsForAllItems = ({
   setModalCreateOpen,
   filterState,
   params,
+  headers,
 }: {
   filterState?: any;
   initData: IOptionsListItem;
@@ -21,6 +22,7 @@ const ListsItemsForAllItems = ({
   setCurrentItem?: (d: any) => void;
   setModalCreateOpen?: Dispatch<SetStateAction<boolean>>;
   params?: any;
+  headers?: any;
 }) => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
@@ -40,7 +42,7 @@ const ListsItemsForAllItems = ({
   const [loading, setLoading] = useState<boolean>(false);
   const loadItems = () => {
     setLoading(true);
-    const options = { params };
+    const options = { params, headers };
 
     itemsService
       .getAll(options)
