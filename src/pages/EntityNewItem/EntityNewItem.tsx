@@ -1,28 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { IEditField, IOptionsListItem } from "../../types/appdata";
-import { servicesPackage, ApiService } from "../../services/servicesPackage";
+import { ApiService, servicesPackage } from "../../services/servicesPackage";
 import { GlobalStateContext } from "../../context/GlobalStateProvider";
-import { getAnyEntity } from "../../utils/createUpdateDeleteAnyEntity";
 import { IEntity } from "../../types/entity";
-import SearchInputSimple from "../../components/searchInput/SearchInputSimple";
-import ListsItemsInTab from "../../components/listItemsInTab/ListItemsInTab";
-import { Icon_add } from "../../components/icons/Icons";
-import "./EntityItem.css";
-import CreateItem from "../../components/createItem/CreateItem";
-import { getItemForEdit } from "../../utils";
-import { getFieldsWithProjectSettings } from "../../utils/getItemForEdit";
-import { fields } from "@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js";
+import {
+  getFieldsWithProjectSettings,
+  getItemForEdit,
+} from "../../utils/getItemForEdit";
 import { getInitDataItem } from "../../utils/createInitDataForEntity";
-import { Outlet, useNavigate } from "react-router-dom";
+import { getAnyEntity } from "../../utils/createUpdateDeleteAnyEntity";
+import CreateItemForEntity from "../../components/CreateItemForEntity/CreateItemForEntity";
 
-const EntityItem = ({
+const EntityNewItem = ({
   initDataEntity,
   initDataFields,
 }: {
   initDataEntity: IOptionsListItem;
   initDataFields: IOptionsListItem;
 }) => {
-  const navigate = useNavigate();
   const { collectionName: entityCollectionName } = initDataEntity;
   const { collectionName: fieldsCollectionName } = initDataFields;
   const entityService = servicesPackage[entityCollectionName];
@@ -39,17 +34,11 @@ const EntityItem = ({
   const [allFieldsForEntity, setAllFieldsForEntity] = useState<IEditField[]>(
     []
   );
+
   const [forEditFields, setForEditFields] = useState<any>([]);
-  const [modalCreateOpen, setModalCreateOpen] = useState(false);
-
-  const [placeholder, setPlaceholder] = useState<string>("Search ...");
-  const [buttonTitle, setButtonTitle] = useState<string>("Create new item");
-
   const [initDataItem, setInitDataItem] = useState<IOptionsListItem>(
     {} as IOptionsListItem
   );
-
-  const [currentItem, setCurrentItem] = useState<any>(null);
 
   const [projectSettings, setProjectSettings] = useState<any>({
     languages: ["en", "de", "fr", "es", "it", "ru"],
@@ -58,36 +47,20 @@ const EntityItem = ({
     emailNotification: true,
   });
 
-  const pathArr = location.pathname.split("/");
-  const chRNum = 5; //document.getElementById("templates-root") ? 2 : 4;
-  // console.log(
-  //   "childRoute entity",
-  //   pathArr.length,
-  //   chRNum,
-  //   pathArr.length > chRNum
-  // );
-  const childRoute = pathArr.length > chRNum;
-
-  const createNewItem = () => {
-    setItemFromServerForEdit(null);
-    setCurrentItem(null);
-    setModalCreateOpen(true);
-  };
-
   // get entity  , fields and settings for this project
   useEffect(() => {
     // here we get get entity  , fields and settings for this project
     if (entityService && fieldsService) {
-      changeRouteData({ entity: null });
+      //   changeRouteData({ entity: null });
       setLoading(true);
       getAnyEntity(entityId, entityService)
         .then((res) => {
           // get entity by id and set it to the state
           const entity: IEntity = res as unknown as IEntity;
           setLoading(false);
-          changeRouteData({ entity: entity });
+          //   changeRouteData({ entity: entity });
           setItemEntity(entity);
-          console.log(entity);
+          //console.log(entity);
           if (entity) {
             // create service for items  this entity
             servicesPackage[entity.tableName] = new ApiService<any>(
@@ -104,14 +77,23 @@ const EntityItem = ({
           return fieldsService.getAll(options);
         })
         .then((res: any) => {
+          //console.log(res);
           // get all fields for this entity and add forCreatePage and forEditPage
-          setAllFieldsForEntity(res.items);
+          setAllFieldsForEntity(
+            res.map((field: any) => {
+              return {
+                ...field,
+                collectionName:
+                  field.name === "type" ? "promptsType" : undefined,
+              };
+            })
+          );
         })
         .then(() => {
           // get all settings for this project
           return settingService.getAll();
         })
-        .then((res) => {
+        .then((res: any) => {
           setProjectSettings(res);
         })
         .catch((err: any) => {
@@ -132,72 +114,27 @@ const EntityItem = ({
       const initData = getInitDataItem(itemEntity, allFieldsWithLangs);
       setForEditFields(allFieldsWithLangs);
       setInitDataItem(initData);
+      const data = getItemForEdit(allFieldsForEntity, null, projectSettings);
+      setItemFromServerForEdit(data);
     }
   }, [itemEntity, allFieldsForEntity, projectSettings]);
 
   // then we watch for currentItem and if it is changed we get item from server and set it for edit due to project settings
 
-  useEffect(() => {
-    const itemsService = servicesPackage[itemEntity?.tableName || ""];
-    if (currentItem && currentItem.id) {
-      getAnyEntity(currentItem.id, itemsService).then((res: any) => {
-        const data = getItemForEdit(allFieldsForEntity, res, projectSettings);
-        setItemFromServerForEdit(data);
-      });
-    } else {
-      const data = getItemForEdit(allFieldsForEntity, null, projectSettings);
-      setItemFromServerForEdit(data);
-    }
-  }, [currentItem]);
-
   return (
-    <React.Fragment>
-      {modalCreateOpen && (
-        <CreateItem
+    <>
+      {initDataItem.forEdit && itemFromServerForEdit && (
+        <CreateItemForEntity
           initAllFields={forEditFields}
           dataForEditPage={initDataItem.forEdit}
           messages={{}}
           currentItem={itemFromServerForEdit}
-          openModal={modalCreateOpen}
-          handleCloseModal={() => setModalCreateOpen(false)}
-          setOpenModal={setModalCreateOpen}
           itemsService={servicesPackage[itemEntity?.tableName || ""]}
           parentEntityId={entityId}
         />
       )}
-      <div className={`entityItem-container ${childRoute ? "childRoute" : ""}`}>
-        <div className="entityItem-header">
-          <SearchInputSimple
-            disabled={loading}
-            setSearchState={setSearchState}
-            placeholder={placeholder}
-          />
-          <button
-            data-size="small"
-            className="button primaryButton"
-            onClick={() => {
-              navigate("newitem");
-              // createNewItem();
-            }}
-            disabled={loading}
-          >
-            <Icon_add />
-            <span className="body-m-medium">{buttonTitle}</span>
-          </button>
-        </div>
-
-        {initDataItem && initDataItem.collectionName && (
-          <ListsItemsInTab
-            initData={initDataItem}
-            searchState={searchState}
-            setModalCreateOpen={setModalCreateOpen}
-            setCurrentItem={setCurrentItem}
-          />
-        )}
-      </div>
-      <Outlet />
-    </React.Fragment>
+    </>
   );
 };
 
-export default EntityItem;
+export default EntityNewItem;

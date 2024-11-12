@@ -6,17 +6,17 @@ import React, {
   useState,
 } from "react";
 
-import { Modal } from "@mui/material";
-import styles from "./CreateItem.module.css";
+import styles from "./CreateItemForEntity.module.css";
+import "./CreateItemForEntity.css";
 
 import { FormProvider, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { createAnyEntity, createSchema } from "../../utils";
+import { createAnyEntity, createSchema, getItemForEdit } from "../../utils";
 
 import { GlobalStateContext } from "../../context/GlobalStateProvider";
-import { Icon_info, Icon_window_close } from "./Icons";
+
 import {
   IDataForEditPage,
   IEditField,
@@ -25,10 +25,11 @@ import {
 import Appmodal from "../appmodal/Appmodal";
 import {
   deleteAnyEntity,
+  getAnyEntity,
   updateAnyEntity,
 } from "../../utils/createUpdateDeleteAnyEntity";
 import { removeNoneOptions } from "../../utils/removeNoneOptions";
-import GetInputForField from "./GetInputForField";
+import GetInputForField from "../GetInputForField/GetInputForField";
 
 interface IItem {
   id?: string;
@@ -38,9 +39,6 @@ interface IItem {
 }
 
 interface IProps {
-  openModal: boolean;
-  handleCloseModal: () => void;
-  setOpenModal: Dispatch<SetStateAction<boolean>>;
   currentItem: IItem;
   dataForEditPage: IDataForEditPage;
 
@@ -52,9 +50,6 @@ interface IProps {
 //allFields we use to create the resolverSchema
 const CreateItem = ({
   currentItem,
-  openModal,
-  handleCloseModal,
-  setOpenModal,
   dataForEditPage,
   messages = {},
   itemsService,
@@ -152,9 +147,7 @@ const CreateItem = ({
     removeNoneOptions(data, allFields);
     if (!currentItem.id) {
       await createAnyEntity({ ...data }, itemsService, afterCreateMessage).then(
-        () => {
-          setOpenModal(false);
-        }
+        () => {}
       );
     } else {
       await updateAnyEntity(
@@ -162,17 +155,13 @@ const CreateItem = ({
         data,
         itemsService,
         afterUpdateMessage
-      ).then(() => {
-        setOpenModal(false);
-      });
+      ).then(() => {});
     }
   };
   const deleteItem = async () => {
     if (currentItem && currentItem.id) {
       await deleteAnyEntity(currentItem.id, itemsService, afterDeleteMessage)
-        .then(() => {
-          setOpenModal(false);
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err);
         });
@@ -184,7 +173,6 @@ const CreateItem = ({
     }
     setAction(null);
     setOpenConfirmModal(false);
-    setOpenModal(false);
   };
 
   useEffect(() => {
@@ -214,141 +202,63 @@ const CreateItem = ({
     });
   }, [initAllFields]);
 
+  //console.log(initAllFields);
+
   return (
     <>
-      <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        BackdropProps={
-          darkMode === "dark"
-            ? { style: { backgroundColor: "rgb(255, 255, 255,0.15)" } }
-            : {}
-        }
-      >
-        <div className={styles.container}>
-          <div className={`${styles.header} modalHeader`}>
-            <button
-              data-size="small"
-              className="iconButton secondatyIconButton"
-              onClick={() => {
-                setOpenModal(false);
-              }}
-            >
-              <Icon_window_close />
-            </button>
+      <div className={styles.container}>
+        <div className={`${styles.header} modalHeader`}>
+          <span
+            className="body-l-medium"
+            style={{
+              flex: "1 0 0",
+            }}
+          >
+            {!currentItem.id
+              ? dataForEditPage?.title[0]
+              : dataForEditPage?.title[1]}
+          </span>
 
-            <span
-              className="body-l-medium"
-              style={{
-                flex: "1 0 0",
-              }}
-            >
-              {!currentItem.id
-                ? dataForEditPage?.title[0]
-                : dataForEditPage?.title[1]}
-            </span>
-
-            <button
-              className="button primaryButton"
-              onClick={onSubmitUpload}
-              data-size="small"
-            >
-              <span className="body-m-medium">{buttonTitle}</span>
-            </button>
-          </div>
-
-          <FormProvider {...methods}>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              //onSubmit={methods.handleSubmit(onSubmit, onError)}
-              noValidate
-              autoComplete="new-password"
-              className={styles.form}
-            >
-              {sections.map((section, i) => (
-                <div
-                  className={`${styles.section} ${
-                    i !== 0 ? styles.borderTop : ""
-                  }`}
-                  key={section.title}
-                >
-                  <div className={styles.boxtitle}>
-                    <div className={styles.number_box}></div>
-                    <span className="mono-s-medium">{section.title}</span>
-                  </div>
-                  {section.info && (
-                    <div className={styles.info_section_container}>
-                      <div className={styles.titleInfoContainerWrapper}>
-                        <div className={styles.info_containerIconWrapper}>
-                          <Icon_info />
-                        </div>
-                        <span className="body-m-medium">
-                          {section.info.title}
-                        </span>
-                      </div>
-                      <div className={styles.info_textWrapper}>
-                        <span className="body-s-multiline">
-                          {section.info.text}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  {section.button && (
-                    <>
-                      {section.button.action === "delete" && currentItem.id && (
-                        <div className="dengerButtonWrapper">
-                          {section.button.label && (
-                            <span className="body-m-multiline text-default">
-                              {" "}
-                              {section.button.label}
-                            </span>
-                          )}
-                          <button
-                            data-outlined="true"
-                            className="button dangerButton"
-                            onClick={(e: React.MouseEvent<HTMLElement>) => {
-                              if (section.button) {
-                                handleActionItem(section.button);
-                              }
-                            }}
-                          >
-                            <span className="body-l-medium">
-                              {section.button.title}
-                            </span>
-                          </button>
-                        </div>
-                      )}
-                    </>
-                  )}
-
-                  {section.fields.map((field: IEditField) => {
-                    return (
-                      <div
-                        className={`${styles.box_container} ${
-                          field.foreignKey &&
-                          field.foreignKeyValue !== watchedValue
-                            ? "hidden"
-                            : ""
-                        }`}
-                        key={field.name}
-                      >
-                        <GetInputForField
-                          currentItem={currentItem}
-                          field={field}
-                          parentEntityId={parentEntityId}
-                          control={control}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </form>
-          </FormProvider>
+          <button
+            className="button primaryButton"
+            onClick={onSubmitUpload}
+            data-size="small"
+          >
+            <span className="body-m-medium">{buttonTitle}</span>
+          </button>
         </div>
-      </Modal>
 
-      {openModal && (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            noValidate
+            autoComplete="new-password"
+            className={styles.form}
+          >
+            {initAllFields.map((field: IEditField) => {
+              return (
+                <div
+                  className={`input_container_for_from ${
+                    field.foreignKey && field.foreignKeyValue !== watchedValue
+                      ? "hidden"
+                      : ""
+                  }`}
+                  key={field.name}
+                >
+                  <GetInputForField
+                    currentItem={currentItem}
+                    field={field}
+                    parentEntityId={parentEntityId}
+                    control={control}
+                  />
+                </div>
+              );
+            })}
+          </form>
+        </FormProvider>
+      </div>
+
+      {openConfirmModal && (
         <Appmodal
           openModal={openConfirmModal}
           handleCloseModal={() => setOpenConfirmModal(false)}

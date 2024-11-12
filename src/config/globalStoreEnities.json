@@ -22,5 +22,15 @@
     },
 
     "reloadEventTitle": "reloadProjectSettings"
+  },
+  {
+    "collection": "promptsType",
+    "title": "Prompts type",
+    "apiUrl": "",
+    "items": [
+      { "id": "note", "name": "Notes" },
+      { "id": "letter", "name": "Letters" },
+      { "id": "other", "name": "Other" }
+    ]
   }
 ]

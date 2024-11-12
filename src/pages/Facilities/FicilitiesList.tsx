@@ -1,6 +1,6 @@
 // this is component for list of goups of companies
 // the ldata stucture is written in the file src/types/groupCompanies.ts
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Outlet, useLocation } from "react-router-dom";
 import { IOptionsListItem } from "../../types/appdata";
@@ -11,12 +11,15 @@ import "./FacilitiesList.css";
 import SearchInputSimple from "../../components/searchInput/SearchInputSimple";
 import ListsItemsInTab from "../../components/listItemsInTab/ListItemsInTab";
 import { setCurrentFacilityLS } from "../../services/localStorage";
+import { GlobalStateContext } from "../../context/GlobalStateProvider";
 
 const FacilitiesList = ({
   initDataFacilities,
 }: {
   initDataFacilities: IOptionsListItem;
 }) => {
+  const { entitiesList } = useContext(GlobalStateContext);
+  console.log(entitiesList);
   const { forEdit, forList, reloadEventTitle, collectionName } =
     initDataFacilities;
   const itemsService = servicesPackage[collectionName];

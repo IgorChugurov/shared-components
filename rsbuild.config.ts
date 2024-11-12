@@ -37,7 +37,7 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5104,
+    port: 5105,
   },
   dev: {
     //assetPrefix: "http://localhost:3002",

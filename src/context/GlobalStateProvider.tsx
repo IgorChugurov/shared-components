@@ -182,12 +182,21 @@ export const GlobalStateProvider: React.FC<StateProviderProps> = ({
           await loadEntity(dependency);
         }
       }
+
       await renewData(entity);
       loadedEntities.add(entity);
     };
 
     for (const item of appGlobalStoreEnitiesList) {
-      await loadEntity(item.collection);
+      if (item.apiUrl) {
+        await loadEntity(item.collection);
+      } else if (item.items) {
+        const name = item.collection;
+        dispatch({
+          type: "SET_DATA",
+          payload: { name, data: item.items },
+        });
+      }
     }
   };
 
@@ -195,10 +204,14 @@ export const GlobalStateProvider: React.FC<StateProviderProps> = ({
     const eventListeners: Array<() => void> = [];
     appGlobalStoreEnitiesList.forEach((item: DataItem) => {
       const eventListener = () => renewData(item.collection);
-      window.addEventListener(item.reloadEventTitle, eventListener);
-      eventListeners.push(() =>
-        window.removeEventListener(item.reloadEventTitle, eventListener)
-      );
+      if (item.reloadEventTitle) {
+        window.addEventListener(item.reloadEventTitle, eventListener);
+        eventListeners.push(() => {
+          if (item.reloadEventTitle) {
+            window.removeEventListener(item.reloadEventTitle, eventListener);
+          }
+        });
+      }
     });
     loadDataWithDependencies();
     return () => {

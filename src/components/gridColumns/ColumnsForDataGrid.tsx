@@ -77,6 +77,7 @@ const getColumn = ({
   dataService: ApiService<any>;
   deleteMessage?: string; // for delete entity message
 }) => {
+  console.log(column);
   const { field, headerName, width, options, type, flex, additioonalUrl } =
     column;
 

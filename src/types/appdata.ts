@@ -3,14 +3,16 @@
  */
 export interface DataItem {
   collection: string;
-  apiUrl: string;
+  apiUrl?: string;
   title: string;
   reloadEvents?: { delete?: string; update?: string; create?: string };
+
+  items?: any[];
 
   /**
    * The title of the event that will be triggered when the element in the collection created, updated or deleted
    */
-  reloadEventTitle: string;
+  reloadEventTitle?: string;
 }
 /**
  * Represents the authentication data.

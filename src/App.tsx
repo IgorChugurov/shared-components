@@ -25,6 +25,7 @@ import {
   Entities,
   Entity,
   Facilities,
+  NewEntity,
   Settings,
   Users,
 } from "./routeComponents.tsx";
@@ -51,6 +52,12 @@ const router = createBrowserRouter([
               {
                 path: "/facilities/:facilityId/entities/:entityId",
                 element: <Entity />,
+                children: [
+                  {
+                    path: "/facilities/:facilityId/entities/:entityId/newitem",
+                    element: <NewEntity />,
+                  },
+                ],
               },
             ],
           },
