@@ -1,0 +1,56 @@
+.form-container-for-create-update-any-item {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--background-gray-default);
+  padding: var(--space-400, 16px) var(--space-5200, 208px);
+  flex-grow: 1;
+
+  overflow: hidden;
+  .header {
+    display: flex;
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+
+    align-self: stretch;
+    padding: var(--space-300, 12px) var(--space-800, 32px);
+    align-items: center;
+    gap: var(--space-200, 8px);
+    border-radius: var(--radius-00, 0px);
+    border-bottom: var(--stroke-border, 1px) solid
+      var(--border-default-tertiary, #e7e7e7);
+    background: var(--background-primary-secondary, #f8f7fb);
+    color: var(--text-gray-default, #262626);
+    justify-content: space-between;
+  }
+
+  .form {
+    counter-reset: section;
+    width: 100%;
+    display: flex;
+    padding: var(--space-400, 16px) var(--space-0, 0px) var(--space-800, 32px)
+      var(--space-0, 0px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-800, 32px);
+    align-self: stretch;
+    overflow-y: auto;
+  }
+  .buttonsWrpper {
+    display: flex;
+    gap: var(--space-200, 8px);
+    align-self: flex-end;
+  }
+
+  .input_container_for_from {
+    display: flex;
+    align-items: flex-start;
+    /* gap: 8px; */
+    gap: 16px;
+    align-self: stretch;
+    border-radius: 6px;
+    width: 100%;
+  }
+}
