@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+.container > div:first-child {
+  width: 89px;
+}

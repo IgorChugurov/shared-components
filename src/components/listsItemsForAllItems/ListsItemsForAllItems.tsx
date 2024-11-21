@@ -47,7 +47,7 @@ const ListsItemsForAllItems = ({
     itemsService
       .getAll(options)
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         setServerItems(res);
       })
       .catch((err: any) => {

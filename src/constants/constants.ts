@@ -13,3 +13,9 @@ export const INIT_SETTINGS = {
   emails: "",
   emailNotification: true,
 };
+export const INIT_SETTINGS2 = {
+  languages: ["en", "de", "fr", "es", "it", "ru"],
+  defaultLang: "en",
+  emails: "",
+  emailNotification: true,
+};

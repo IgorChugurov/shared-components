@@ -1,3 +1,6 @@
+/**
+ * This component is a page for a specific entity. It displays a list of items of that entity and allows the user to create, edit, and delete items.
+ */
 import React, { useContext, useEffect, useState } from "react";
 import { IEditField, IOptionsListItem } from "../../types/appdata";
 import { servicesPackage, ApiService } from "../../services/servicesPackage";
@@ -11,9 +14,9 @@ import "./EntityItem.css";
 import CreateItem from "../../components/createItem/CreateItem";
 import { getItemForEdit } from "../../utils";
 import { getFieldsWithProjectSettings } from "../../utils/getItemForEdit";
-import { fields } from "@hookform/resolvers/ajv/src/__tests__/__fixtures__/data.js";
-import { getInitDataItem } from "../../utils/createInitDataForEntity";
+
 import { Outlet, useNavigate } from "react-router-dom";
+import { getInitDataForDatasetFromEntity } from "../../utils/createInitDataForEntity";
 
 const EntityItem = ({
   initDataEntity,
@@ -50,13 +53,14 @@ const EntityItem = ({
   );
 
   const [currentItem, setCurrentItem] = useState<any>(null);
+  const [projectSettings, setProjectSettings] = useState<any>(null);
 
-  const [projectSettings, setProjectSettings] = useState<any>({
-    languages: ["en", "de", "fr", "es", "it", "ru"],
-    defaultLang: "en",
-    emails: "",
-    emailNotification: true,
-  });
+  // const [projectSettings, setProjectSettings] = useState<any>({
+  //   languages: ["en", "de", "fr", "es", "it", "ru"],
+  //   defaultLang: "en",
+  //   emails: "",
+  //   emailNotification: true,
+  // });
 
   const pathArr = location.pathname.split("/");
   const chRNum = 5; //document.getElementById("templates-root") ? 2 : 4;
@@ -87,12 +91,22 @@ const EntityItem = ({
           setLoading(false);
           changeRouteData({ entity: entity });
           setItemEntity(entity);
-          console.log(entity);
-          if (entity) {
+          setButtonTitle(`Create new ${entity.name.toLowerCase()}`);
+          setPlaceholder(`Search for ${entity.name.toLowerCase()}`);
+          //console.log(entity);
+          if (
+            entity &&
+            entity.tableName &&
+            !servicesPackage[entity.tableName]
+          ) {
             // create service for items  this entity
             servicesPackage[entity.tableName] = new ApiService<any>(
               entity.url,
-              `reloadItems${entity.tableName}`
+              {
+                update: `reloadItems${entity.tableName}`,
+                create: `reloadItems${entity.tableName}`,
+                delete: `reloadItems${entity.tableName}`,
+              }
             );
           }
         })
@@ -105,7 +119,7 @@ const EntityItem = ({
         })
         .then((res: any) => {
           // get all fields for this entity and add forCreatePage and forEditPage
-          setAllFieldsForEntity(res.items);
+          setAllFieldsForEntity(res);
         })
         .then(() => {
           // get all settings for this project
@@ -124,12 +138,15 @@ const EntityItem = ({
   }, []);
   // then we create initData for entity item and set fields for edit based on project settings and fields for entity from server
   useEffect(() => {
-    if (itemEntity && allFieldsForEntity) {
+    if (itemEntity && allFieldsForEntity.length > 0 && projectSettings) {
       const allFieldsWithLangs = getFieldsWithProjectSettings(
         allFieldsForEntity,
         projectSettings
       );
-      const initData = getInitDataItem(itemEntity, allFieldsWithLangs);
+      const initData = getInitDataForDatasetFromEntity(
+        itemEntity,
+        allFieldsWithLangs
+      );
       setForEditFields(allFieldsWithLangs);
       setInitDataItem(initData);
     }
@@ -152,7 +169,7 @@ const EntityItem = ({
 
   return (
     <React.Fragment>
-      {modalCreateOpen && (
+      {/* {modalCreateOpen && (
         <CreateItem
           initAllFields={forEditFields}
           dataForEditPage={initDataItem.forEdit}
@@ -164,7 +181,7 @@ const EntityItem = ({
           itemsService={servicesPackage[itemEntity?.tableName || ""]}
           parentEntityId={entityId}
         />
-      )}
+      )} */}
       <div className={`entityItem-container ${childRoute ? "childRoute" : ""}`}>
         <div className="entityItem-header">
           <SearchInputSimple
@@ -177,7 +194,7 @@ const EntityItem = ({
             className="button primaryButton"
             onClick={() => {
               navigate("newitem");
-              // createNewItem();
+              //createNewItem();
             }}
             disabled={loading}
           >

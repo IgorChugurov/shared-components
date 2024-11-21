@@ -2,7 +2,11 @@ import { IEditField } from "../types/appdata";
 import { IEntity } from "../types/entity";
 
 //here we crete initData for entity item
-export const getInitDataItem = (item: IEntity, fieldsForEdit: IEditField[]) => {
+export const getInitDataForDatasetFromEntity = (
+  item: IEntity,
+  fieldsForEdit: IEditField[]
+) => {
+  //console.log(getColumnsFromFields(fieldsForEdit));
   const initData = {
     title: item.name,
     collectionName: item.tableName,
@@ -17,16 +21,17 @@ export const getInitDataItem = (item: IEntity, fieldsForEdit: IEditField[]) => {
     },
     reloadEventTitle: `reloadItems${item.tableName}`,
     forList: {
-      searchBlock: "Search for items",
+      searchBlock: `Search for ${item.name.toLowerCase()}`,
 
-      buttonBlock: { title: "New item" },
+      buttonBlock: { title: `New ${item.name.toLowerCase()}` },
       columnsForGrid: [
-        {
-          field: "name",
-          headerName: "Name",
-          flex: 1,
-          type: "openEditPage",
-        },
+        ...getColumnsFromFields(fieldsForEdit),
+        // {
+        //   field: "name",
+        //   headerName: "Name",
+        //   flex: 1,
+        //   type: "openEditPage",
+        // },
 
         {
           field: "actions",
@@ -37,37 +42,41 @@ export const getInitDataItem = (item: IEntity, fieldsForEdit: IEditField[]) => {
             actions: [
               {
                 action: "edit",
+                link: true,
               },
             ],
           },
         },
       ],
       forEmptyList: {
-        title: "You have no itemss",
+        title: `You have no ${item.name.toLowerCase()}s`,
         messages: [
-          "Itemss that you create will end up here.",
-          "Add a itemss to get started.",
+          `${item.name}s that you create will end up here.`,
+          `Add a ${item.name.toLowerCase()}s to get started.`,
         ],
       },
       messages: {
-        afterCreate: "Item was created successfully!",
-        afterDelete: "Item was deleted successfully!",
-        afterEdit: "Item was updated successfully!",
+        afterCreate: `${item.name} was created successfully!`,
+        afterDelete: `${item.name} was deleted successfully!`,
+        afterEdit: `${item.name} was updated successfully!`,
         forDeleteModal: {
           modalText:
             "Are you sure you want to delete ${item.name}? This action cannot be undone.",
-          modalTitle: "Confirm deleting item",
+          modalTitle: `Confirm deleting ${item.name.toLowerCase()}`,
           buttonTitle: "Delete",
         },
       },
     },
     forEdit: {
-      title: ["Create new item", "Edit item"],
+      title: [
+        `Create new ${item.name.toLowerCase()}`,
+        `Edit ${item.name.toLowerCase()}`,
+      ],
       pageHeader: "Field details",
       buttonText: { create: "Create", edit: "Update" },
       sections: [
         {
-          title: "Item information",
+          title: `${item.name} information`,
           fields: fieldsForEdit,
         },
         {
@@ -89,4 +98,17 @@ export const getInitDataItem = (item: IEntity, fieldsForEdit: IEditField[]) => {
   };
 
   return initData;
+};
+
+const getColumnsFromFields = (fields: IEditField[]) => {
+  return fields
+    .filter((field) => field.displayInTable)
+    .map((field, i) => {
+      return {
+        type: i === 0 ? "naigateToDetails" : undefined,
+        field: field.name,
+        headerName: field.label || "Name",
+        flex: 1,
+      };
+    });
 };

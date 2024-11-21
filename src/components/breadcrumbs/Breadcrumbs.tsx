@@ -30,7 +30,7 @@ const Breadcrumbs = () => {
       const title = facility?.name || facility?.title || "";
       data.push({ title: "Facilities", link: "/" }, { title: title });
 
-      if (arr.length === 5) {
+      if (arr.length >= 5) {
         const entity = routeData?.entity;
         const titleEntity = entity?.name || "";
 

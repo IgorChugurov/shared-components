@@ -19,7 +19,7 @@ const FacilitiesList = ({
   initDataFacilities: IOptionsListItem;
 }) => {
   const { entitiesList } = useContext(GlobalStateContext);
-  console.log(entitiesList);
+  //console.log(entitiesList);
   const { forEdit, forList, reloadEventTitle, collectionName } =
     initDataFacilities;
   const itemsService = servicesPackage[collectionName];

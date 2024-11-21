@@ -87,7 +87,7 @@ const CreateItem = ({
   const [sections] = useState<any[]>(
     initSection?.filter((sec) => {
       sec.fields = sec.fields.filter((field) => {
-        if (currentItem.id) {
+        if (currentItem && currentItem.id) {
           return field.forEditPage;
         } else {
           return field.forCreatePage;
@@ -130,7 +130,7 @@ const CreateItem = ({
   const methods = useForm({
     mode: "onTouched",
     resolver: yupResolver(resolverSchema),
-    defaultValues: currentItem,
+    defaultValues: currentItem || {},
   });
   const { control, watch } = methods;
   // this is for the case when we have a foreign key field and we wath for the value of the foreign key input . if the value changes we show or hide the field if the value
@@ -150,7 +150,7 @@ const CreateItem = ({
 
   const createOrUpdateData = async (data: any) => {
     removeNoneOptions(data, allFields);
-    if (!currentItem.id) {
+    if (!currentItem || !currentItem.id) {
       await createAnyEntity({ ...data }, itemsService, afterCreateMessage).then(
         () => {
           setOpenModal(false);
@@ -188,7 +188,7 @@ const CreateItem = ({
   };
 
   useEffect(() => {
-    if (currentItem.id) {
+    if (currentItem && currentItem.id) {
       setButtonTitle(buttonText?.update || "Update");
       // getAnyEntity(currentItem.id, itemsService).then((res: any) => {
       //   const itemFromServer = getItemForEdit(allFields, res);
@@ -243,7 +243,7 @@ const CreateItem = ({
                 flex: "1 0 0",
               }}
             >
-              {!currentItem.id
+              {!currentItem || !currentItem.id
                 ? dataForEditPage?.title[0]
                 : dataForEditPage?.title[1]}
             </span>
@@ -295,29 +295,31 @@ const CreateItem = ({
                   )}
                   {section.button && (
                     <>
-                      {section.button.action === "delete" && currentItem.id && (
-                        <div className="dengerButtonWrapper">
-                          {section.button.label && (
-                            <span className="body-m-multiline text-default">
-                              {" "}
-                              {section.button.label}
-                            </span>
-                          )}
-                          <button
-                            data-outlined="true"
-                            className="button dangerButton"
-                            onClick={(e: React.MouseEvent<HTMLElement>) => {
-                              if (section.button) {
-                                handleActionItem(section.button);
-                              }
-                            }}
-                          >
-                            <span className="body-l-medium">
-                              {section.button.title}
-                            </span>
-                          </button>
-                        </div>
-                      )}
+                      {section.button.action === "delete" &&
+                        currentItem &&
+                        currentItem.id && (
+                          <div className="dengerButtonWrapper">
+                            {section.button.label && (
+                              <span className="body-m-multiline text-default">
+                                {" "}
+                                {section.button.label}
+                              </span>
+                            )}
+                            <button
+                              data-outlined="true"
+                              className="button dangerButton"
+                              onClick={(e: React.MouseEvent<HTMLElement>) => {
+                                if (section.button) {
+                                  handleActionItem(section.button);
+                                }
+                              }}
+                            >
+                              <span className="body-l-medium">
+                                {section.button.title}
+                              </span>
+                            </button>
+                          </div>
+                        )}
                     </>
                   )}
 

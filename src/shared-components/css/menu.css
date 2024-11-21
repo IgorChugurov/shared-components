@@ -1,6 +1,7 @@
 /* menu paper */
-.menuPaper {
-  margin-top: 2px;
+
+.templateMenuPaper {
+  margin-top: 1px;
 
   display: flex;
 
@@ -8,13 +9,13 @@
   align-items: flex-start;
 
   align-self: stretch;
-  border-radius: var(--radius-200, 8px);
-  border: var(--stroke-border, 1px) solid var(--border-gray-default, #e3e3e3);
+  border-radius: var(--radius-200, 8px) !important;
+  border: var(--stroke-border, 1px) solid var(--border-gray-default, #e3e3e3) !important;
   background: var(--background-gray-secondary, #fafafa) !important;
   /* card shadow/S */
-  box-shadow: 0px 2px 8px 0px rgba(171, 166, 194, 0.3);
+  box-shadow: 0px 2px 8px 0px rgba(171, 166, 194, 0.3) !important;
 }
-.menuPaper ul {
+.templateMenuPaper ul {
   padding: var(--space-100, 4px);
   gap: var(--space-050, 2px);
   width: 100%;
@@ -47,16 +48,39 @@
   /* Hover state */
 }
 .menuItem:hover {
-  background: var(--background-primary-tertiary, #e5e4f0) !important;
+  background: var(--background-primary-tertiary, #bcdaf7) !important;
 }
 .menuItem.Mui-selected {
-  background: var(--background-primary-tertiary, #e5e4f0) !important;
+  background: var(--background-primary-tertiary, #bcdaf7) !important;
 }
 .menuItemText {
   overflow: hidden;
   text-overflow: ellipsis;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   white-space: "nowrap";
+}
+.menuItemText:first-letter {
+  text-transform: uppercase;
+}
+.templateFilterPaper {
+  margin-top: 2px;
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 237px;
+
+  border-radius: var(--radius-200, 8px) !important;
+  border: var(--stroke-border, 1px) solid var(--border-gray-default, #e3e3e3) !important;
+  background: var(--background-gray-secondary, #fafafa);
+  /* card shadow/S */
+  box-shadow: 0px 2px 8px 0px rgba(171, 166, 194, 0.3) !important;
+  ul {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
 }
 .loadingInSelect {
   padding: var(--space-200, 8px) !important;

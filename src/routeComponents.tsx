@@ -6,7 +6,7 @@ import initDataFacilities from "./config/facilities.json";
 import FacilitiesList from "./pages/Facilities/FicilitiesList.tsx";
 import FacilityItem from "./pages/FacilityItem/FacilityItem.tsx";
 import EntityItem from "./pages/EntityItem/EntityItem.tsx";
-import EntityNewItem from "./pages/EntityNewItem/EntityNewItem.tsx";
+import EntityDatasetNewOrEditItem from "./pages/EntityDatasetNewOrEditItem/EntityDatasetNewOrEditItem.tsx";
 
 export const Facilities = () => (
   <FacilitiesList initDataFacilities={initDataFacilities} />
@@ -44,8 +44,8 @@ export const Users = () => (
 export const Entity = () => (
   <EntityItem initDataEntity={initDataEntity} initDataFields={initDataFields} />
 );
-export const NewEntity = () => (
-  <EntityNewItem
+export const NewOrEditDatasetItem = () => (
+  <EntityDatasetNewOrEditItem
     initDataEntity={initDataEntity}
     initDataFields={initDataFields}
   />

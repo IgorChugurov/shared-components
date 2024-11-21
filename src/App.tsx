@@ -11,7 +11,7 @@ import "./css/inputs.css";
 import "./css/select.css";
 import "./css/switch.css";
 import "./css/radio.css";
-import "./css/menu.css";
+import "./shared-components/css/menu.css";
 import "./css/buttons.css";
 import "./css/iconButtons.css";
 import "./css/modal.css";
@@ -25,7 +25,7 @@ import {
   Entities,
   Entity,
   Facilities,
-  NewEntity,
+  NewOrEditDatasetItem,
   Settings,
   Users,
 } from "./routeComponents.tsx";
@@ -55,7 +55,11 @@ const router = createBrowserRouter([
                 children: [
                   {
                     path: "/facilities/:facilityId/entities/:entityId/newitem",
-                    element: <NewEntity />,
+                    element: <NewOrEditDatasetItem />,
+                  },
+                  {
+                    path: "/facilities/:facilityId/entities/:entityId/:datasetItemId",
+                    element: <NewOrEditDatasetItem />,
                   },
                 ],
               },

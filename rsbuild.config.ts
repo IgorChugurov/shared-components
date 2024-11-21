@@ -1,7 +1,7 @@
 import path from "path";
 import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
-import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
+//import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 import Dotenv from "dotenv-webpack";
 //import CssModulesPlugin from "esbuild-plugin-css-modules";
 

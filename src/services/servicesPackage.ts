@@ -16,7 +16,7 @@ const { EntitiesForListAndServicesPackageAndEditPage } = initConfig;
 export interface IApiService<T> {
   deleteMany: (d: any) => Promise<any>;
   deleteOne: (d: string) => Promise<any>;
-  updagteOne: (d: T) => Promise<T>;
+  updateOne: (d: T) => Promise<T>;
   createOne: (d: T) => Promise<T>;
   getOne: (d: string) => Promise<T>;
   getAll: () => Promise<T[]>;

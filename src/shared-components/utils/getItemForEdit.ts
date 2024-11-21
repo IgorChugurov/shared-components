@@ -9,7 +9,7 @@ export const getItemForEdit = <T>(
     languages: ["en"],
     defaultLang: "en",
   };
-  let data = allFields?.reduce((acc: any, field: any) => {
+  let data = allFields.reduce((acc: any, field: any) => {
     if (field.multiLanguage) {
       acc[`${field.name}_${defaultLang}`] = "";
       languages.forEach((lang) => {

@@ -344,6 +344,11 @@ export interface IEditField {
   exclude?: string;
 
   multiLanguage?: boolean;
+
+  /**
+   * Indicates if the field is displayed in the table.
+   */
+  displayInTable?: boolean;
 }
 export interface IOptionsForRadioAndSelect {
   value?: string; //for radio
