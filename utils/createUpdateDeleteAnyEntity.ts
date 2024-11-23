@@ -3,12 +3,13 @@ import { sendMessage, setError, setSuccess } from "./sendMessage";
 export const createAnyEntity = async (
   data: any,
   service: any,
-  message?: string
+  message?: string,
+  serviceOptions?: any
 ) => {
   sendMessage("showParange");
   try {
     // console.log(message);
-    const res = await service.createOne(data);
+    const res = await service.createOne(data, serviceOptions);
     // this reload event from initdata for this service and was set while servoce was created in the service package
     if (service.reloadEvents && service.reloadEvents.create) {
       sendMessage(service.reloadEvents.create);
@@ -30,11 +31,12 @@ export const updateAnyEntity = async (
   id: string,
   data: any,
   service: any,
-  message?: string
+  message?: string,
+  serviceOptions?: any
 ) => {
   sendMessage("showParange");
   try {
-    const res = await service.updateOne(id, data);
+    const res = await service.updateOne(id, data, serviceOptions);
     if (service.reloadEvents && service.reloadEvents.update) {
       sendMessage(service.reloadEvents.update);
     }

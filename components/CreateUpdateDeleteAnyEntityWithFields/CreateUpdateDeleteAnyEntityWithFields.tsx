@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CreateUpdateDeleteAnyEntityWithFields.css";
 import Appmodal from "../appmodal/Appmodal";
 import {
@@ -6,9 +6,10 @@ import {
   deleteAnyEntity,
   updateAnyEntity,
 } from "../../utils/createUpdateDeleteAnyEntity";
-import { IEditField } from "../../types/appdata";
+
 import { useNavigate } from "react-router-dom";
 import EntityForm from "./FormComponent";
+import { IEditField } from "../../types/fields";
 
 interface IItem {
   id?: string;
@@ -24,7 +25,12 @@ interface IProps {
   messages: any;
   pageTitle?: string;
   buttonTitle?: string;
-  parentUrl: string;
+  parentUrl: string | ((v: boolean) => void);
+  serviceOptions?: {
+    headers?: any;
+    params?: any;
+    hiddenFields?: any[];
+  };
 }
 
 const CreateUpdateDeleteAnyEntityWithFields = ({
@@ -35,29 +41,56 @@ const CreateUpdateDeleteAnyEntityWithFields = ({
   pageTitle = "Create item",
   buttonTitle = "Create",
   parentUrl,
+  serviceOptions,
 }: IProps) => {
-  console.log(itemsService);
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleSubmit = async (data: any) => {
+    const dataToSend = {
+      ...data,
+      // Распределяем все скрытые поля, если они есть
+      ...serviceOptions?.hiddenFields?.reduce(
+        (acc, field) => ({
+          ...acc,
+          [field.name]: field.value,
+        }),
+        {}
+      ),
+    };
+
     if (!currentItem.id) {
-      await createAnyEntity(data, itemsService, messages.afterCreate);
+      await createAnyEntity(
+        dataToSend,
+        itemsService,
+        messages.afterCreate,
+        serviceOptions
+      );
     } else {
       await updateAnyEntity(
         currentItem.id,
-        data,
+        dataToSend,
         itemsService,
-        messages.afterEdit
+        messages.afterEdit,
+        serviceOptions
       );
     }
-    navigate(parentUrl);
+    if (typeof parentUrl === "function") {
+      parentUrl(false);
+    } else {
+      navigate(parentUrl);
+    }
   };
   const handleDelete = async () => {
     if (currentItem?.id) {
       await deleteAnyEntity(currentItem.id, itemsService, messages.afterDelete);
-      navigate(parentUrl);
+      if (typeof parentUrl === "function") {
+        parentUrl(false);
+      } else {
+        navigate(parentUrl);
+      }
     }
   };
+
   return (
     <>
       <EntityForm
@@ -65,7 +98,13 @@ const CreateUpdateDeleteAnyEntityWithFields = ({
         currentItem={currentItem}
         onSubmit={handleSubmit}
         onDelete={() => setShowDeleteModal(true)}
-        onCancel={() => navigate(parentUrl)}
+        onCancel={() => {
+          if (typeof parentUrl === "function") {
+            parentUrl(false);
+          } else {
+            navigate(parentUrl);
+          }
+        }}
         pageTitle={pageTitle}
         buttonTitle={buttonTitle}
         showDeleteButton={Boolean(currentItem?.id)}

@@ -2,11 +2,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import "./FormComponent.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IEditField } from "../../types/appdata";
-import { useMemo } from "react";
+
+import { useEffect, useMemo } from "react";
 import { createSchema } from "../../utils/createSchema";
 import { removeNoneOptions } from "../../utils/removeNoneOptions";
 import GetInputForField from "../GetInputForField/GetInputForField";
+import { IEditField } from "../../types/fields";
 interface IItem {
   id?: string;
   name: string;
@@ -49,6 +50,10 @@ const EntityForm: React.FC<EntityFormProps> = ({
     const cleanData = removeNoneOptions(data, fields);
     await onSubmit(cleanData);
   });
+
+  useEffect(() => {
+    methods.reset(currentItem);
+  }, [currentItem]);
 
   return (
     <div className="form-container-for-create-update-any-item">

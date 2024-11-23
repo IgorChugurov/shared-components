@@ -107,6 +107,7 @@ export interface IEditField {
 
   selectorSourceId?: string;
   errorMessage?: string; // this is for the case when we have an error in the field or load options error
+  displayInTable?: boolean;
 }
 
 export interface IOptionsForRadioAndSelect {

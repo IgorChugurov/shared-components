@@ -1,0 +1,10 @@
+.deleteActionInCell {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  height: 40px;
+  display: flex;
+  padding: var(--space-200, 8px) var(--space-300, 12px) var(--space-200, 8px) var(--space-300, 12px);
+  align-items: center;
+  gap: var(--space-200, 8px);
+}
