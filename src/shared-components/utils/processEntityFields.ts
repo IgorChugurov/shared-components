@@ -13,13 +13,15 @@ const getOptionsFromSelector = async (
   sendRequest: any
 ): Promise<any[]> => {
   const sourceEntity = await entityService.getOne(selectorSourceId);
+
   const req = {
     params: { entityDefinitionId: sourceEntity.id },
     headers: { entityDefinitionId: sourceEntity.id },
     url: sourceEntity.url,
   };
   const response = await sendRequest(req);
-  return response.items;
+
+  return response.items || response;
 };
 
 /**
@@ -61,6 +63,7 @@ const getFieldOptions = async (
         entityService,
         sendRequest
       );
+      console.log(options);
       updateField({
         ...updatedField,
         options,
@@ -136,6 +139,7 @@ export const processEntityFields = ({
   // Start asynchronous options loading for select fields
   fields.forEach((field) => {
     if (field.type === "select") {
+      //console.log(field);
       getFieldOptions(
         field,
         entitiesList,

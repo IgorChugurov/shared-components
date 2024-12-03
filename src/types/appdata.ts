@@ -3,6 +3,7 @@
  */
 export interface DataItem {
   collection: string;
+  collections?: { filterField: string; value: string }[];
   apiUrl?: string;
   title: string;
   reloadEvents?: { delete?: string; update?: string; create?: string };

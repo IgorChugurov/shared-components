@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { IEditField, IOptionsListItem } from "../../types/appdata";
@@ -123,9 +124,10 @@ const DatasetNewItem: React.FC<{
           const updateField = (newField: IEditField) => {
             setEntityState((prev) => ({
               ...prev,
-              fields: prev.fields.map((field) =>
-                field.name === newField.name ? newField : field
-              ),
+              fields: prev.fields.map((field) => {
+                //console.log("newField", newField);
+                return field.name === newField.name ? newField : field;
+              }),
             }));
           };
 
@@ -169,6 +171,26 @@ const DatasetNewItem: React.FC<{
 
       fetchData();
     }, [services, entityId]);
+
+    const timeoutRef = useRef<NodeJS.Timeout>();
+    useEffect(() => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        const allFieldsWithLangs = getFieldsWithProjectSettings(
+          entityState.fields,
+          entityState.settings
+        );
+        setProcessedData((prev) => {
+          return {
+            ...prev,
+            forEditFields: allFieldsWithLangs,
+          };
+        });
+      }, 500);
+    }, [entityState.fields]);
 
     // Process data when all pieces are available
 

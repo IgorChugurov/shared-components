@@ -24,7 +24,7 @@
     "reloadEventTitle": "reloadProjectSettings"
   },
   {
-    "collection": "promptsType",
+    "collection": "promptsType2",
     "title": "Prompts type",
     "apiUrl": "",
     "items": [

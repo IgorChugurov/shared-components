@@ -75,22 +75,30 @@ export const GlobalStateProvider: React.FC<StateProviderProps> = ({
 }) => {
   const initialState = useMemo(() => {
     return appGlobalStoreEnitiesList.reduce((acc: AppState, item: DataItem) => {
-      acc[item.collection] = { list: [], loading: false };
+      if (item.collection) {
+        acc[item.collection] = { list: [], loading: false };
+      }
+
       return acc;
     }, {});
   }, []);
 
-  const mapOfUrl: { [key: string]: { apiUrl: string; title: string } } =
-    useMemo(() => {
-      return appGlobalStoreEnitiesList.reduce(
-        (acc: { [key: string]: any }, item: DataItem) => {
-          acc[item.collection] = { ...item };
-          return acc;
-        },
-        {}
-      );
-    }, []);
-
+  const mapOfUrl: {
+    [key: string]: {
+      apiUrl: string;
+      title: string;
+      collections: { filterField: string; value: string }[];
+    };
+  } = useMemo(() => {
+    return appGlobalStoreEnitiesList.reduce(
+      (acc: { [key: string]: any }, item: DataItem) => {
+        acc[item.collection] = { ...item };
+        return acc;
+      },
+      {}
+    );
+  }, []);
+  //console.log(mapOfUrl);
   const [darkMode, setDarkMode] = useState<PaletteMode>(initState.darkMode);
   const [TITLE] = useState(initConfig.TITLE);
   const [VERSION] = useState(initConfig.VERSION);
@@ -154,7 +162,36 @@ export const GlobalStateProvider: React.FC<StateProviderProps> = ({
         //         emailNotification: true,
         //       }
         //     : [];
-        dispatch({ type: "SET_DATA", payload: { name, data: [] } });
+        if (name === "entityValues") {
+          if (mapOfUrl[name].collections && mapOfUrl[name].collections.length) {
+            mapOfUrl[name].collections.forEach((collection) => {
+              dispatch({
+                type: "SET_DATA",
+                payload: {
+                  name: collection.value,
+                  data: [
+                    { id: "1", name: "Note" },
+                    { id: "2", name: "Letter" },
+                  ],
+                },
+              });
+            });
+          }
+
+          // dispatch({
+          //   type: "SET_DATA",
+          //   payload: {
+          //     name,
+          //     data: [
+          //       { id: "1", name: "Note" },
+          //       { id: "2", name: "Letter" },
+          //     ],
+          //   },
+          // });
+        } else {
+          dispatch({ type: "SET_DATA", payload: { name, data: [] } });
+        }
+
         setTimeout(() => {
           setError("");
         }, 5000);
@@ -239,6 +276,7 @@ export const GlobalStateProvider: React.FC<StateProviderProps> = ({
       setCurrentProjectLS(currentProject);
     }
   }, [currentProject]);
+  //console.log(entitiesList);
   return (
     <GlobalStateContext.Provider
       value={{

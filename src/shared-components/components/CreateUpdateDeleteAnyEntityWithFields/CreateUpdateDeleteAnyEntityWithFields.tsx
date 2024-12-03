@@ -36,7 +36,7 @@ const CreateUpdateDeleteAnyEntityWithFields = ({
   buttonTitle = "Create",
   parentUrl,
 }: IProps) => {
-  console.log(itemsService);
+  //console.log(itemsService);
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handleSubmit = async (data: any) => {
