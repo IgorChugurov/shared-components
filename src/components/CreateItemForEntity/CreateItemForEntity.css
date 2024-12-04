@@ -1,9 +1,0 @@
-.input_container_for_from {
-  display: flex;
-  align-items: flex-start;
-  /* gap: 8px; */
-  gap: 16px;
-  align-self: stretch;
-  border-radius: 6px;
-  width: 100%;
-}

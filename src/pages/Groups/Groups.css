@@ -1,6 +1,0 @@
-.companyInGroupCard {
-  background: var(--background-primary-secondary, #f8f7fb);
-}
-.companyInGroupCard:hover {
-  background: var(--background-primary-secondary-hover, #e5e4f0);
-}
