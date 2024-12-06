@@ -1,4 +1,4 @@
-import { NavigateFunction } from "react-router-dom";
+import { sendMessage } from "../utils/sendMessage";
 
 interface ServiceConfig {
   lskey: string;
@@ -7,7 +7,6 @@ interface ServiceConfig {
   apiUrl: string;
 
   tokenField?: string;
-  navigate?: NavigateFunction; // Добавляем navigate в конфиг
 
   defaultHeaders?: () => { [key: string]: string };
 }
@@ -40,7 +39,6 @@ function createRequestService({
   apiUrl,
 
   tokenField = "accessToken",
-  navigate, // Получаем navigate из конфига
 
   defaultHeaders,
 }: ServiceConfig) {
@@ -49,15 +47,14 @@ function createRequestService({
       throw err;
     }
 
-    if (navigate) {
-      // if (err?.statusCode === 404 || err?.statusCode === 400) {
-      //   navigate("/404");
-      //   return;
-      // }
-      if (err?.statusCode === 401) {
-        navigate("/unauthorized");
-        return;
-      }
+    if (err?.statusCode === 401) {
+      sendMessage("unauthorized");
+      return;
+    }
+
+    if (err?.statusCode === 404 || err?.statusCode === 400) {
+      sendMessage("page-not-found");
+      return;
     }
 
     throw err;
@@ -103,6 +100,7 @@ function createRequestService({
       console.log(err);
       handleError(err);
       // if (err && err.statusCode && (err.statusCode === 400 || err.statusCode === 404)) {
+
       //   navigate("/404");
       // }
       // if (err && err.statusCode && (err.statusCode === 400 || err.statusCode === 404)) {
@@ -230,9 +228,6 @@ function createRequestService({
 
   return {
     sendRequest: send,
-    setNavigate: (newNavigate: NavigateFunction) => {
-      navigate = newNavigate;
-    },
   };
 }
 export default createRequestService;
